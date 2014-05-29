@@ -10,6 +10,9 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using Future.Filters;
 using Future.Models;
+using System.Data.SqlClient;
+using System.Net.Mail;
+using System.Net;
 
 namespace Future.Controllers
 {
@@ -37,6 +40,50 @@ namespace Future.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
+                //This is testing the build-in SqlClient 
+                //Connection tested sucessfully on 11/6/2013
+                SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                SqlDataReader rdr = null;
+                string UserName = "";
+                try
+                {
+                    // 2. Open the connection
+                    conn.Open();
+
+                    // 3. Pass the connection to a command object
+                    SqlCommand cmd = new SqlCommand("select UserName from UserProfile where UserName = '" + model.UserName + "'", conn);
+
+                    //
+                    // 4. Use the connection
+                    //
+
+                    // get query results
+                    rdr = cmd.ExecuteReader();
+
+                    // print the Title of each Movie
+                    while (rdr.Read())
+                    {
+                        UserName += rdr[0];
+                    }
+                }
+                finally
+                {
+                    // close the reader
+                    if (rdr != null)
+                    {
+                        rdr.Close();
+                    }
+
+                    // 5. Close the connection
+                    if (conn != null)
+                    {
+                        conn.Close();
+                    }
+                }
+                HttpCookie cookieUserName = new HttpCookie("UserName");
+                cookieUserName.Value = UserName;
+                cookieUserName.Expires = DateTime.Now.AddDays(1d);
+                Response.Cookies.Add(cookieUserName);
                 return RedirectToLocal(returnUrl);
             }
 
@@ -52,6 +99,12 @@ namespace Future.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            if (Request.Cookies["UserName"] != null)
+            {
+                HttpCookie cookieUserName = new HttpCookie("UserName");
+                cookieUserName.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(cookieUserName);
+            }
             WebSecurity.Logout();
 
             return RedirectToAction("Index", "Home");
@@ -81,6 +134,75 @@ namespace Future.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    //This is testing the build-in SqlClient 
+                    //Connection tested sucessfully on 11/6/2013
+                    SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                    SqlDataReader rdr = null;
+                    string UserName = "";
+                    try
+                    {
+                        // 2. Open the connection
+                        conn.Open();
+
+                        // 3. Pass the connection to a command object
+                        SqlCommand cmd = new SqlCommand("select UserName from UserProfile where UserName = '" + model.UserName + "'", conn);
+
+                        //
+                        // 4. Use the connection
+                        //
+
+                        // get query results
+                        rdr = cmd.ExecuteReader();
+
+                        // print the Title of each Movie
+                        while (rdr.Read())
+                        {
+                            UserName += rdr[0];
+                        }
+                    }
+                    finally
+                    {
+                        // close the reader
+                        if (rdr != null)
+                        {
+                            rdr.Close();
+                        }
+
+                        // 5. Close the connection
+                        if (conn != null)
+                        {
+                            conn.Close();
+                        }
+                    }
+                    HttpCookie cookieUserName = new HttpCookie("UserName");
+                    cookieUserName.Value = UserName;
+                    cookieUserName.Expires = DateTime.Now.AddDays(1d);
+                    Response.Cookies.Add(cookieUserName);
+                    var fromAddress = new MailAddress("guzeng0516@gmail.com", "Luke Gu Zeng");
+                    var toAddress = new MailAddress("lukezeng@live.com", model.UserName);
+                    const string fromPassword = "Apple0312";
+                    string subject = "Welcome to Luke's Future";
+                    string body = "Hi," + model.UserName;
+
+
+                    //Sending Email to greet the new registered user 
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                    };
+                    using (var message = new MailMessage(fromAddress, toAddress)
+                    {
+                        Subject = subject,
+                        Body = body
+                    })
+                    {
+                        smtp.Send(message);
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
