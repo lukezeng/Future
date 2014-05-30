@@ -237,11 +237,7 @@ namespace Future.Controllers
         {
             if (WebSecurity.ConfirmAccount(username, confirmToken))
             {
-                return RedirectToAction("Login", "Account",
-                    new
-                    {
-                        massage = "Account: " + username + " is activated!"
-                    });
+                return RedirectToAction("Login", "Account");
             }
             else
             {

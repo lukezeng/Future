@@ -18,6 +18,45 @@ namespace Future.Controllers
 
         public ActionResult About()
         {
+            //This is testing the build-in SqlClient 
+            //Connection tested sucessfully on 11/6/2013
+            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            SqlDataReader rdr = null;
+            try
+            {
+                // 2. Open the connection
+                conn.Open();
+
+                // 3. Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand("SELECT AboutInfo FROM FutureInfo", conn);
+
+                //
+                // 4. Use the connection
+                //
+
+                // get query results
+                rdr = cmd.ExecuteReader();
+
+                // print the Title of each Movie
+                while (rdr.Read())
+                {
+                    ViewBag.AboutInfo = rdr.GetString(0);
+                }
+            }
+            finally
+            {
+                // close the reader
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+
+                // 5. Close the connection
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
             ViewBag.Message = "This is the ViewBag.Message of the Index Page.";
 
             return View();
@@ -77,7 +116,7 @@ namespace Future.Controllers
             return View();
         }
 
-        public ActionResult TestingDB()
+        public ActionResult MyProfile()
         {
             //This is testing the build-in SqlClient 
             //Connection tested sucessfully on 11/6/2013
