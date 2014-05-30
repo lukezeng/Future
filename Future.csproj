@@ -476,6 +476,7 @@
     <Content Include="Views\Home\BasicPlus.cshtml" />
     <Content Include="Views\Home\Basic.cshtml" />
     <Content Include="Views\Home\AngularJS.cshtml" />
+    <Content Include="Views\Account\Registered.cshtml" />
     <None Include="Web.Backload.Default.config" />
     <None Include="Web.Backload.xsd">
       <SubType>Designer</SubType>

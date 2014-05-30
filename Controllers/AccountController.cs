@@ -132,20 +132,25 @@ namespace Future.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    //This is testing the build-in SqlClient 
-                    //Connection tested sucessfully on 11/6/2013
+                    WebSecurity.CreateUserAndAccount(
+                       model.UserName,
+                       model.Password,
+                       new
+                       {
+                           
+                       },
+                       true);
+                    string queryConfirmationToken = "select ConfirmationToken from webpages_Membership where UserId = (SELECT UserId FROM  UserProfile where UserName='" + model.UserName + "'  )";
                     SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                     SqlDataReader rdr = null;
-                    string UserName = "";
+                    string ConfirmationToken = "";
                     try
                     {
                         // 2. Open the connection
                         conn.Open();
 
                         // 3. Pass the connection to a command object
-                        SqlCommand cmd = new SqlCommand("select UserName from UserProfile where UserName = '" + model.UserName + "'", conn);
+                        SqlCommand cmd = new SqlCommand(queryConfirmationToken, conn);
 
                         //
                         // 4. Use the connection
@@ -157,7 +162,7 @@ namespace Future.Controllers
                         // print the Title of each Movie
                         while (rdr.Read())
                         {
-                            UserName += rdr[0];
+                            ConfirmationToken += rdr[0];
                         }
                     }
                     finally
@@ -174,15 +179,12 @@ namespace Future.Controllers
                             conn.Close();
                         }
                     }
-                    HttpCookie cookieUserName = new HttpCookie("UserName");
-                    cookieUserName.Value = UserName;
-                    cookieUserName.Expires = DateTime.Now.AddDays(1d);
-                    Response.Cookies.Add(cookieUserName);
+                    //WebSecurity.Login(model.UserName, model.Password);
                     var fromAddress = new MailAddress("guzeng0516@gmail.com", "Luke Gu Zeng");
-                    var toAddress = new MailAddress("lukezeng@live.com", model.UserName);
+                    var toAddress = new MailAddress(model.UserName, model.UserName);
                     const string fromPassword = "Apple0312";
                     string subject = "Welcome to Luke's Future";
-                    string body = "Hi," + model.UserName;
+                    string body = "http://localhost:62015/account/confirmaccount?username=" + model.UserName + "&confirmToken=" + ConfirmationToken;
 
 
                     //Sending Email to greet the new registered user 
@@ -203,7 +205,7 @@ namespace Future.Controllers
                     {
                         smtp.Send(message);
                     }
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Registered", "Account", new { UserName = model.UserName });
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -213,6 +215,38 @@ namespace Future.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //
+        //Post: /Account/Registered Welcome Page
+        [HttpPost]
+        [AllowAnonymous]
+
+        public ActionResult Registered(string UserName)
+        {
+            ViewBag.UserName = UserName;
+            return View();
+
+        }
+
+        //
+        //Get: /Account/ComfirmAccount
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ConfirmAccount(string username, string confirmToken)
+        {
+            if (WebSecurity.ConfirmAccount(username, confirmToken))
+            {
+                return RedirectToAction("Login", "Account",
+                    new
+                    {
+                        massage = "Account: " + username + " is activated!"
+                    });
+            }
+            else
+            {
+                return RedirectPermanent("http://www.google.com");
+            }
         }
 
         //
