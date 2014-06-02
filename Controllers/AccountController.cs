@@ -105,6 +105,15 @@ namespace Future.Controllers
                 cookieUserName.Expires = DateTime.Now.AddDays(-1d);
                 Response.Cookies.Add(cookieUserName);
             }
+            if (Session["facebooktoken"] != null)
+            {
+                var fb = new Facebook.FacebookClient();
+                string accessToken = Session["facebooktoken"] as string;
+                //var logoutUrl = fb.GetLogoutUrl(new { access_token = accessToken, next = "http://localhost:39852/" });
+
+                Session.RemoveAll();
+                //return Redirect(logoutUrl.AbsoluteUri);
+            }
             WebSecurity.Logout();
 
             return RedirectToAction("Index", "Home");
@@ -376,8 +385,57 @@ namespace Future.Controllers
                 return RedirectToAction("ExternalLoginFailure");
             }
 
+            if (result.ExtraData.Keys.Contains("accesstoken"))
+            {
+                Session["facebooktoken"] = result.ExtraData["accesstoken"];
+            }
+
             if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
             {
+                //This is testing the build-in SqlClient 
+                //Connection tested sucessfully on 11/6/2013
+                SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                SqlDataReader rdr = null;
+                string UserName = "";
+                try
+                {
+                    // 2. Open the connection
+                    conn.Open();
+
+                    // 3. Pass the connection to a command object
+                    SqlCommand cmd = new SqlCommand("select UserName from UserProfile where UserID = (select UserID from webpages_OAuthMembership WHERE ProviderUserID = '" + result.ProviderUserId + "')", conn);
+
+                    //
+                    // 4. Use the connection
+                    //
+
+                    // get query results
+                    rdr = cmd.ExecuteReader();
+
+                    // print the Title of each Movie
+                    while (rdr.Read())
+                    {
+                        UserName += rdr[0];
+                    }
+                }
+                finally
+                {
+                    // close the reader
+                    if (rdr != null)
+                    {
+                        rdr.Close();
+                    }
+
+                    // 5. Close the connection
+                    if (conn != null)
+                    {
+                        conn.Close();
+                    }
+                }
+                HttpCookie cookieUserName = new HttpCookie("UserName");
+                cookieUserName.Value = UserName;
+                cookieUserName.Expires = DateTime.Now.AddDays(1d);
+                Response.Cookies.Add(cookieUserName);
                 return RedirectToLocal(returnUrl);
             }
 
@@ -393,7 +451,18 @@ namespace Future.Controllers
                 string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
                 ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
                 ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+                //return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+                HttpCookie cookieUserName = new HttpCookie("UserName");
+                cookieUserName.Value = "abcc";
+                cookieUserName.Expires = DateTime.Now.AddDays(1d);
+                Response.Cookies.Add(cookieUserName);
+                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel
+                {
+                    UserName = result.UserName,
+                    ExternalLoginData = loginData,
+                    FullName = result.ExtraData["name"],
+                    Link = result.ExtraData["link"]
+                });
             }
         }
 
@@ -423,7 +492,30 @@ namespace Future.Controllers
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        UserProfile newUser = db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.SaveChanges();
+
+                        bool facebookVerified;
+
+                        var client = new Facebook.FacebookClient(Session["facebooktoken"].ToString());
+                        dynamic response = client.Get("me", new { fields = "verified" });
+                        if (response.ContainsKey("verified"))
+                        {
+                            facebookVerified = response["verified"];
+                        }
+                        else
+                        {
+                            facebookVerified = false;
+                        }
+
+
+                        db.ExternalUsers.Add(new ExternalUserInformation
+                        {
+                            UserId = newUser.UserId,
+                            FullName = model.FullName,
+                            Link = model.Link,
+                            Verified = facebookVerified
+                        });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);

@@ -211,6 +211,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406021924568_initial.cs" />
+    <Compile Include="Migrations\201406021924568_initial.Designer.cs">
+      <DependentUpon>201406021924568_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406021931221_AddExtraUserInformation.cs" />
+    <Compile Include="Migrations\201406021931221_AddExtraUserInformation.Designer.cs">
+      <DependentUpon>201406021931221_AddExtraUserInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -511,6 +519,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201406021924568_initial.resx">
+      <DependentUpon>201406021924568_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406021931221_AddExtraUserInformation.resx">
+      <DependentUpon>201406021931221_AddExtraUserInformation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
