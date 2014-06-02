@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Future.Controllers
 {
-    public class AjaxTestController : Controller
+    public class AjaxHandlerController : Controller
     {
         //
         // GET: /AjaxTest/

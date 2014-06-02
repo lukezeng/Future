@@ -22,9 +22,9 @@ namespace Future
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "1431802760414554",
+                appSecret: "1d5e6fd6bd82c72da2a76c1ecfa0c53c");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }
