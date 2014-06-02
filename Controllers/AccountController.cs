@@ -181,7 +181,8 @@ namespace Future.Controllers
                     }
                     //WebSecurity.Login(model.UserName, model.Password);
                     var fromAddress = new MailAddress("guzeng0516@gmail.com", "Luke Gu Zeng");
-                    var toAddress = new MailAddress(model.UserName, model.UserName);
+                    //var toAddress = new MailAddress(model.UserName, model.UserName);
+                    var toAddress = new MailAddress("lukezeng@live.com", model.UserName);
                     const string fromPassword = "Apple0312";
                     string subject = "Welcome to Luke's Future";
                     string body = "http://localhost:62015/account/confirmaccount?username=" + model.UserName + "&confirmToken=" + ConfirmationToken;

@@ -200,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AjaxTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -373,6 +374,20 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\Users\Administrator\DocumentLibHoverOver.JPG" />
+    <Content Include="Files\Users\Administrator\mobile.JPG" />
+    <Content Include="Files\Users\Administrator\region.JPG" />
+    <Content Include="Files\Users\Administrator\showall.JPG" />
+    <Content Include="Files\Users\Administrator\_thumbs\DocumentLibHoverOver.JPG.png" />
+    <Content Include="Files\Users\Administrator\_thumbs\mobile.JPG.png" />
+    <Content Include="Files\Users\Administrator\_thumbs\region.JPG.png" />
+    <Content Include="Files\Users\Administrator\_thumbs\showall.JPG.png" />
+    <Content Include="Files\Users\Admin\divi.JPG" />
+    <Content Include="Files\Users\Admin\historySection.JPG" />
+    <Content Include="Files\Users\Admin\newChooseEmp.JPG" />
+    <Content Include="Files\Users\Admin\_thumbs\divi.JPG.png" />
+    <Content Include="Files\Users\Admin\_thumbs\historySection.JPG.png" />
+    <Content Include="Files\Users\Admin\_thumbs\newChooseEmp.JPG.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -393,7 +408,7 @@
     <Content Include="Scripts\demos.bootstrap.basicplusui.js" />
     <Content Include="Scripts\demos.jqueryui.basicplusui.js" />
     <Content Include="Scripts\FileUpload\angularjs\angular.debug.js" />
-    <Content Include="Scripts\FileUpload\backload.demo.js" />
+    <Content Include="Scripts\FileUpload\main.js" />
     <Content Include="Scripts\FileUpload\bootstrap\bootstrap-image-gallery.debug.js" />
     <Content Include="Scripts\FileUpload\bootstrap\bootstrap.debug.js" />
     <Content Include="Scripts\FileUpload\canvas-to-blob.debug.js" />

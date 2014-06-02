@@ -1,5 +1,16 @@
-﻿/*----------------SlideJS CSS--------------*/
+﻿
+.profilePic {
+    max-height:400px;
+    max-width:400px;
+}
 
+
+/*----------------SlideJS CSS--------------*/
+
+.homeIndexSlideShowContainer {
+    width:700px;
+    margin: 0 auto;
+}
 #slides,
 #slides2,
 #slides3 {

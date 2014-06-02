@@ -116,6 +116,7 @@ namespace Future.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult MyProfile()
         {
             //This is testing the build-in SqlClient 
@@ -128,7 +129,7 @@ namespace Future.Controllers
                 conn.Open();
 
                 // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("SELECT * FROM FutureInfo", conn);
+                SqlCommand cmd = new SqlCommand("SELECT UserProfilePic FROM UserProfile where UserName = '" + Request.Cookies["UserName"].Value + "'", conn);
 
                 //
                 // 4. Use the connection
@@ -140,15 +141,14 @@ namespace Future.Controllers
                 // print the Title of each Movie
                 while (rdr.Read())
                 {
-                    ViewBag.MainPhone = rdr.GetString(1);
-                    ViewBag.AfterHourPhone = rdr.GetString(2);
-                    ViewBag.SupportEmail = rdr.GetString(3);
-                    ViewBag.MarketingEmail = rdr.GetString(4);
-                    ViewBag.GeneralEmail = rdr.GetString(5);
-                    ViewBag.AddressSt = rdr.GetString(6);
-                    ViewBag.AddressCity = rdr.GetString(7);
-                    ViewBag.AddressState = rdr.GetString(8);
-                    ViewBag.AddressZipCode = rdr.GetString(9);
+                    if (rdr.GetString(0)!=null)
+                    {
+                        ViewBag.UserProfilePic = rdr.GetString(0);
+                    } else {
+                        ViewBag.UserProfilePic = "/Files/Users/_DefaultProfilePic/ProfilePic.jpg";
+                    }
+
+                    
                 }
             }
             finally
