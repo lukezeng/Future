@@ -219,6 +219,10 @@
     <Compile Include="Migrations\201406021931221_AddExtraUserInformation.Designer.cs">
       <DependentUpon>201406021931221_AddExtraUserInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406031416000_No-change.cs" />
+    <Compile Include="Migrations\201406031416000_No-change.Designer.cs">
+      <DependentUpon>201406031416000_No-change.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -526,6 +530,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406021931221_AddExtraUserInformation.resx">
       <DependentUpon>201406021931221_AddExtraUserInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031416000_No-change.resx">
+      <DependentUpon>201406031416000_No-change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
