@@ -28,7 +28,7 @@ namespace Future.Controllers
                 conn.Open();
 
                 // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("SELECT AboutInfo FROM FutureInfo", conn);
+                SqlCommand cmd = new SqlCommand("SELECT AboutInfo FROM ViFutureInfo", conn);
 
                 //
                 // 4. Use the connection
@@ -74,7 +74,7 @@ namespace Future.Controllers
                 conn.Open();
 
                 // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("SELECT * FROM FutureInfo", conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM ViFutureInfo", conn);
 
                 //
                 // 4. Use the connection
