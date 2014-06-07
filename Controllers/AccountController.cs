@@ -189,10 +189,10 @@ namespace Future.Controllers
                         }
                     }
                     //WebSecurity.Login(model.UserName, model.Password);
-                    var fromAddress = new MailAddress("guzeng0516@gmail.com", "Luke Gu Zeng");
+                    var fromAddress = new MailAddress("you@vifuture.com", "Team");
                     //var toAddress = new MailAddress(model.UserName, model.UserName);
                     var toAddress = new MailAddress("lukezeng@live.com", model.UserName);
-                    const string fromPassword = "Apple0312";
+                    const string fromPassword = "head/16/fan";
                     string subject = "Welcome to Luke's Future";
                     string body = "http://localhost:62015/account/confirmaccount?username=" + model.UserName + "&confirmToken=" + ConfirmationToken;
 
@@ -200,9 +200,9 @@ namespace Future.Controllers
                     //Sending Email to greet the new registered user 
                     var smtp = new SmtpClient
                     {
-                        Host = "smtp.gmail.com",
+                        Host = "mail.foxglove.arvixe.com",
                         Port = 587,
-                        EnableSsl = true,
+                        EnableSsl = false,
                         DeliveryMethod = SmtpDeliveryMethod.Network,
                         UseDefaultCredentials = false,
                         Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
