@@ -229,9 +229,7 @@ namespace Future.Controllers
 
         //
         //Post: /Account/Registered Welcome Page
-        [HttpPost]
         [AllowAnonymous]
-
         public ActionResult Registered(string UserName)
         {
             ViewBag.UserName = UserName;
