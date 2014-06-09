@@ -189,12 +189,13 @@ namespace Future.Controllers
                         }
                     }
                     //WebSecurity.Login(model.UserName, model.Password);
-                    var fromAddress = new MailAddress("you@vifuture.com", "Team");
+                    var fromAddress = new MailAddress("noreply@vifuture.com", "Vifuture Account Team");
                     //var toAddress = new MailAddress(model.UserName, model.UserName);
                     var toAddress = new MailAddress("lukezeng@live.com", model.UserName);
+                    var toAddressRC = new MailAddress(model.UserName, model.UserName);
                     const string fromPassword = "head/16/fan";
                     string subject = "Welcome to Luke's Future";
-                    string body = "http://localhost:62015/account/confirmaccount?username=" + model.UserName + "&confirmToken=" + ConfirmationToken;
+                    string body = "http://www.Vifuture.com/account/confirmaccount?username=" + model.UserName + "&confirmToken=" + ConfirmationToken;
 
 
                     //Sending Email to greet the new registered user 
@@ -212,8 +213,15 @@ namespace Future.Controllers
                         Subject = subject,
                         Body = body
                     })
+                    using (var messageRC = new MailMessage(fromAddress, toAddressRC)
+                    {
+                        Subject = subject,
+                        Body = body
+                    })
+
                     {
                         smtp.Send(message);
+                        smtp.Send(messageRC);
                     }
                     return RedirectToAction("Registered", "Account", new { UserName = model.UserName });
                 }

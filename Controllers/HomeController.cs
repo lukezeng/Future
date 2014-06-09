@@ -141,11 +141,11 @@ namespace Future.Controllers
                 // print the Title of each Movie
                 while (rdr.Read())
                 {
-                    if (rdr.GetString(0)!=null)
+                    if (!rdr.IsDBNull(0))
                     {
                         ViewBag.UserProfilePic = rdr.GetString(0);
                     } else {
-                        ViewBag.UserProfilePic = "/Files/Users/_DefaultProfilePic/ProfilePic.jpg";
+                        ViewBag.UserProfilePic = "/Files/Users/_DefaultUser/_DefaultProfilePic/DefaultProfilePic.jpg";
                     }
 
                     

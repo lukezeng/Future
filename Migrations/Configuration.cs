@@ -3,7 +3,6 @@ namespace Future.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.IO;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Future.Models.UsersContext>
@@ -27,9 +26,6 @@ namespace Future.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-            //Uncomment the next line to run sql
-            //context.Database.ExecuteSqlCommand(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory.ToString() + "..\\Migrations\\SeedingSQL.sql"));
         }
     }
 }

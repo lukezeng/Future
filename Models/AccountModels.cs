@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -26,6 +27,10 @@ namespace Future.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+
+        private const String DEFAULT_ProfilePic = "/Files/Users/_DefaultUser/_DefaultProfilePic/DefaultProfilePic.jpg";
+        [DefaultValue(DEFAULT_ProfilePic)]
+        public string UserProfilePic { get; set; }
     }
 
     public class RegisterExternalLoginModel
