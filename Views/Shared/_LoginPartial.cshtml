@@ -1,4 +1,5 @@
-﻿@if (Request.IsAuthenticated) {
+﻿@if (Request.IsAuthenticated && Request.Cookies.Get("UserName")!=null)
+{
     <text>
         Hello, @Html.ActionLink(@Request.Cookies.Get("UserName").Value, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {

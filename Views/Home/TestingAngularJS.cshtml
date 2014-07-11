@@ -1,0 +1,15 @@
+﻿<div>
+    <div data-ng-controller="restaurantListCtrl">
+        Search:<input type="text" data-ng-model="search" />{{search}}
+        Order by:<select data-ng-model="orderProp">
+            <option value="Name">Name</option>
+            <option value="Review">Review</option>
+        </select>
+        <ul>
+            <li data-ng-repeat="restaurant in restaurants| filter:search | orderBy:orderProp">{{restaurant.Name}}
+                <p>{{restaurant.Review}}</p>
+            </li>
+        </ul>
+
+    </div>
+</div>

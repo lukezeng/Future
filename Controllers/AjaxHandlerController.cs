@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace Future.Controllers
 {
@@ -54,5 +55,33 @@ namespace Future.Controllers
             }
             return ProfilePicLocation;
         }
+
+        [HttpPost]
+        public String GetRestautants(string ProfilePicName)
+        {
+            List<Restaurant> Restaurants = new List<Restaurant>{
+                   new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
+                   new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"},
+                   new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
+                   new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"},
+                   new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
+                   new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"},
+                   new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
+                   new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"},
+                   new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
+                   new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"},
+                   new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
+                   new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"},
+                   new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
+                   new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"}
+                   };
+            Restaurants.Add(new Restaurant { Name = "Second R", Review = "fdgsdgfsdfg" });
+            var serializer = new JavaScriptSerializer();
+            var serializedResult = serializer.Serialize(Restaurants);
+
+            return serializedResult;
+        }
+
+
     }
 }

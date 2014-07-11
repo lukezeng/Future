@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ng-app="restaurantApp">
 <head>
     <meta charset="utf-8" />
     
@@ -10,6 +10,7 @@
     @Styles.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/css")
 
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js");
 
     
     @RenderSection("header", required: false)
@@ -32,10 +33,12 @@
                     @Html.Partial("_LoginPartial")
                 </section>
                 <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <ul class="nav nav-pills" data-ng-controller="navigationCtrl as navCtrl">
+                        <li data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li data-ng-class="{active:navCtrl.isSet(2)}" data-ng-click="navCtrl.setTab(2)">@Html.ActionLink("RWD", "TestingRWD", "Home")</li>
+                        <li data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)">@Html.ActionLink("Angular", "TestingAngularJS", "Home")</li>
+                        <li data-ng-class="{active:navCtrl.isSet(4)}" data-ng-click="navCtrl.setTab(4)">@Html.ActionLink("About", "About", "Home")</li>
+                        <li data-ng-class="{active:navCtrl.isSet(5)}" data-ng-click="navCtrl.setTab(5)">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         @{
                             if (Request.Cookies["UserName"] != null)
                             {
@@ -62,6 +65,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/app/app.js");
 
    
     

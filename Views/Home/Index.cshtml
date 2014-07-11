@@ -3,35 +3,26 @@
 }
 @section featured {
     <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
-        </div>
     </section>
 }
 
-  <!-- SlidesJS Required: Start Slides -->
-  <!-- The container is used to define the width of the slideshow -->
-  <div class="homeIndexSlideShowContainer hidden-xs hidden-sm">
+<!-- SlidesJS Required: Start Slides -->
+<!-- The container is used to define the width of the slideshow -->
+
+<div class="homeIndexSlideShowContainer" style="background-color: white; margin: auto;">
     <div id="slides2">
-      <img src="/Images/example-slide-1.jpg" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/">
-      <img src="/Images/example-slide-2.jpg" alt="Photo by: Daniel Parks Link: http://www.flickr.com/photos/parksdh/5227623068/">
-      <img src="/Images/example-slide-3.jpg" alt="Photo by: Mike Ranweiler Link: http://www.flickr.com/photos/27874907@N04/4833059991/">
-      <img src="/Images/example-slide-4.jpg" alt="Photo by: Stuart SeegerLink: http://www.flickr.com/photos/stuseeger/97577796/">
-      <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left"></i></a>
-      <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right"></i></a>
+        <img src="/Images/example-slide-1.jpg" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/">
+        <img src="/Images/example-slide-2.jpg" alt="Photo by: Daniel Parks Link: http://www.flickr.com/photos/parksdh/5227623068/">
+        <img src="/Images/example-slide-3.jpg" alt="Photo by: Mike Ranweiler Link: http://www.flickr.com/photos/27874907@N04/4833059991/">
+        <img src="/Images/example-slide-4.jpg" alt="Photo by: Stuart SeegerLink: http://www.flickr.com/photos/stuseeger/97577796/">
+        <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left"></i></a>
+        <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right"></i></a>
     </div>
-  </div>
+</div>
+
 <!-- End SlidesJS Required: Start Slides -->
+
+
 <h3>We suggest the following:</h3>
 <ol class="round">
     <li class="one">
@@ -60,25 +51,25 @@
 
 
 @section scripts{
-  <!-- SlidesJS Required: Link to jQuery -->
-  <!-- SlidesJS Required: Link to jquery.slides.js -->
-  <script src="/Scripts/jquery.slides.js"></script>
-  <!-- End SlidesJS Required -->
+    <!-- SlidesJS Required: Link to jQuery -->
+    <!-- SlidesJS Required: Link to jquery.slides.js -->
+    <script src="/Scripts/jquery.slides.js"></script>
+    <!-- End SlidesJS Required -->
 
-  <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
-  <script>
-    $(function() {
-      $('#slides2').slidesjs({
-        width: 940,
-        height: 528,
-        navigation: false,
-        start: 4,
-        play: {
-          auto: false
-        }
-      });
-    });
+    <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
+    <script>
+        $(function () {
+            $('#slides2').slidesjs({
+                width: 940,
+                height: 528,
+                navigation: false,
+                start: 4,
+                play: {
+                    auto: false
+                }
+            });
+        });
   </script>
-  <!-- End SlidesJS Required -->
-    
-    }
+    <!-- End SlidesJS Required -->
+
+}

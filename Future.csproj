@@ -207,6 +207,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AjaxHandlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\JSONHelper.cs" />
+    <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -412,6 +414,7 @@
     <None Include="Properties\PublishProfiles\Vifuture.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Release notes.txt" />
+    <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\cors\jquery.postmessage-transport.js" />
@@ -509,6 +512,8 @@
     <Content Include="Views\Home\AngularJS.cshtml" />
     <Content Include="Views\Home\MyProfile.cshtml" />
     <Content Include="Views\Account\Registered.cshtml" />
+    <Content Include="Views\Home\TestingRWD.cshtml" />
+    <Content Include="Views\Home\TestingAngularJS.cshtml" />
     <None Include="Web.Backload.Default.config" />
     <None Include="Web.Backload.xsd">
       <SubType>Designer</SubType>
