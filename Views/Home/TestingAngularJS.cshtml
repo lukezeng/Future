@@ -6,10 +6,22 @@
             <option value="Review">Review</option>
         </select>
         <ul>
-            <li data-ng-repeat="restaurant in restaurants| filter:search | orderBy:orderProp">{{restaurant.Name}}
+            <li data-ng-repeat="restaurant in restaurants | filter:search | offset: currentPage*restaurantsPerPage | limitTo: restaurantsPerPage  | orderBy:orderProp ">{{restaurant.Name}}
                 <p>{{restaurant.Review}}</p>
             </li>
         </ul>
-
+        <div class="pagination">
+            <ul>
+              <li ng-class="prevPageDisabled()">
+                <a href ng-click="prevPage()">« Prev</a>
+              </li>
+              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+                <a href="#">{{n+1}}</a>
+              </li>
+              <li ng-class="nextPageDisabled()">
+                <a href ng-click="nextPage()">Next »</a>
+              </li>
+            </ul>
+          </div>
     </div>
 </div>
