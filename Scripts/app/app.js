@@ -23,7 +23,8 @@ restaurantApp.filter('offset', function () {
 restaurantApp.controller('restaurantListCtrl', function ($scope, $http) {
 
     $scope.restaurants = [];
-    $http({ method: 'POST', url: '/AjaxHandler/GetRestautants' }).
+    //$http({ method: 'POST', url: '/AjaxHandler/GetRestautants' }).
+    $http({ method: 'POST', url: '/api/restaurant/GetAllRestaurants' }).
     success(function (data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
@@ -70,7 +71,7 @@ restaurantApp.controller('restaurantListCtrl', function ($scope, $http) {
     };
 
     $scope.range = function () {
-        var rangeSize = 5;
+        var rangeSize = 4;
         var ret = [];
         var start;
 

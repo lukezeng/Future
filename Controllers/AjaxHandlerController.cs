@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Future.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace Future.Controllers
         }
 
         [HttpPost]
-        public String GetRestautants(string ProfilePicName)
+        public String GetRestautants()
         {
             List<Restaurant> Restaurants = new List<Restaurant>{
                    new Restaurant{Name = "First R", Review = "This is asdadasdasda"},

@@ -207,6 +207,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AjaxHandlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Models\JSONHelper.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
