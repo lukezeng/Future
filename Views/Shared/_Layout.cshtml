@@ -39,6 +39,8 @@
                         <li data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)">@Html.ActionLink("Angular", "TestingAngularJS", "Home")</li>
                         <li data-ng-class="{active:navCtrl.isSet(4)}" data-ng-click="navCtrl.setTab(4)">@Html.ActionLink("About", "About", "Home")</li>
                         <li data-ng-class="{active:navCtrl.isSet(5)}" data-ng-click="navCtrl.setTab(5)">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)"><a href="/index.html">SPA</a></li>
+
                         @{
                             if (Request.Cookies["UserName"] != null)
                             {

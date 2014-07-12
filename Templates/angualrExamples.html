@@ -1,0 +1,26 @@
+﻿<hr />
+{{textToShow}}
+<hr />
+<ul>
+    <li data-ng-repeat="name in nameList">{{name}}</li>
+</ul>
+<form data-ng-submit="addName()">
+    Name:<input type="text" data-ng-model="nameToAdd" />
+    <br />
+    <input type="submit" value="Add Name to nameList" />
+</form>
+<hr />
+Search:<input type="text" data-ng-model="searchQuery" />
+<button data-ng-click="sortOrder = 'firstName'">Sort by first name</button>
+<button data-ng-click="sortOrder = 'lastName'">Sort by first name</button>
+<ul>
+    <li data-ng-repeat="name in UserList | filter:searchQuery | orderBy: sortOrder">{{name.firstName}} {{name.lastName}}</li>
+</ul>
+<form data-ng-submit="addUser()">
+    First Name:<input type="text" data-ng-model="userFirstName" />
+    <br />
+    Last Name:<input type="text" data-ng-model="userLastName" />
+    <br />
+    <input type="submit" value="Add Name to nameList" />
+</form>
+<hr />

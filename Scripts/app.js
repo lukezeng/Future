@@ -9,6 +9,10 @@
                 controller: 'restaurantListCtrl1',
                 templateUrl: 'Templates/about.html'
             }).
+            when('/angualrExamples', {
+                controller: 'examplesCtrl',
+                templateUrl: 'Templates/angualrExamples.html'
+            }).
             otherwise({ redirectTo: '/' });
     }).
     directive('greet', function () {
@@ -182,6 +186,32 @@ restaurantApp.controller('restaurantListCtrl1', function ($scope, $http) {
 
     
 });
+
+
+restaurantApp.controller('examplesCtrl', function ($scope, $http) {
+    $scope.sortOrder = 'lastName';
+    $scope.textToShow = "here is the text to show";
+    $scope.nameList = ['Luke', 'Kaixin', 'Jianmin'];
+    $scope.addName = function () {
+        $scope.nameList.push($scope.nameToAdd);
+        $scope.nameToAdd = '';
+    }
+    $scope.UserList = [
+        {firstName:'Luke',lastName:'Zeng'},
+        {firstName:'Kaixin',lastName:'Li'},
+        {firstName:'Jianmin',lastName:'Chen'}
+    ];
+    $scope.addUser = function () {
+        $scope.UserList.push({ firstName: $scope.userFirstName, lastName: $scope.userLastName });
+        $scope.userFirstName = '';
+        $scope.userLastName = '';
+    }
+
+
+});
+
+
+
 
 
 
