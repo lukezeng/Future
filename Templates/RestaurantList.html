@@ -1,0 +1,26 @@
+﻿Search:<input type="text" data-ng-model="search" />{{search}}
+        Order by:<select data-ng-model="orderProp">
+            <option value="Name">Name</option>
+            <option value="Review">Review</option>
+        </select>
+<ul>
+    <li data-ng-repeat="restaurant in restaurants | 
+                filter:search | offset: currentPage*restaurantsPerPage | 
+                limitTo: restaurantsPerPage  | orderBy:orderProp "
+        class="col-md-6">{{restaurant.Name}}
+                <p>{{restaurant.Review}}</p>
+    </li>
+</ul>
+<div class="pagination">
+    <ul>
+        <li data-ng-class="prevPageDisabled()">
+            <a data-ng-click="prevPage()">« Prev</a>
+        </li>
+        <li data-ng-repeat="n in range()" data-ng-class="{active: n == currentPage}" data-ng-click="setPage(n)">
+            <a>{{n+1}}</a>
+        </li>
+        <li data-ng-class="nextPageDisabled()">
+            <a data-ng-click="nextPage()">Next »</a>
+        </li>
+    </ul>
+</div>
