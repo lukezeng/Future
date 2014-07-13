@@ -22,26 +22,24 @@
                         
     <title>@ViewBag.Title - My ASP.NET MVC Application</title>
 </head>
-<body>
+<body class="container">
     <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title"></p>
-            </div>
+        asdasdasdasdasdasdasd
+    </header>
+    <div id="body">
+        <div class="content-wrapper col-md-3" >
             <div class="float-right">
                 <nav>
                     <ul class="nav nav-pills" data-ng-controller="navigationCtrl as navCtrl">
-                        <li data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)"><a href="#">Angular</a></li>
-                        <li data-ng-class="{active:navCtrl.isSet(4)}" data-ng-click="navCtrl.setTab(4)"><a href="#/about">About</a></li>
-                        <li data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)"><a href="#/angualrExamples">50 Angular examples</a></li>
-                        <li data-ng-class="{active:navCtrl.isSet(5)}" data-ng-click="navCtrl.setTab(5)"><a>Contact</a></li>
+                        <li class="col-md-6" data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)"><a href="#">Angular</a></li>
+                        <li class="col-md-6" data-ng-class="{active:navCtrl.isSet(2)}" data-ng-click="navCtrl.setTab(2)"><a href="#/topCompanies">Companies</a></li>
+                        <li class="col-md-6" data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)"><a href="#/angualrExamples">Examples</a></li>
+                        <li class="col-md-6" data-ng-class="{active:navCtrl.isSet(4)}" data-ng-click="navCtrl.setTab(4)"><a>Contact</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
-    </header>
-    <div id="body">
-        <div class="container">
+        <div  class="col-md-9">
             <div data-ng-view=""> </div>
         </div>
     </div>

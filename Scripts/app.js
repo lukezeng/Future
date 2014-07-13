@@ -5,13 +5,21 @@
                 controller: 'restaurantListCtrl',
                 templateUrl: 'Templates/RestaurantList.html'
             }).
-            when('/about', {
-                controller: 'restaurantListCtrl1',
-                templateUrl: 'Templates/about.html'
+            when('/topCompanies', {
+                controller: 'topCompaniesListCtrl',
+                templateUrl: 'Templates/topCompanies.html'
+            }).
+            when('/topCompanies/:companyName', {
+                controller: 'companyCtrl',
+                templateUrl: 'Templates/company.html'
             }).
             when('/angualrExamples', {
                 controller: 'examplesCtrl',
                 templateUrl: 'Templates/angualrExamples.html'
+            }).
+            when('/:unknown', {
+                controller: 'unknownPageCtrl',
+                templateUrl: 'Templates/404unknown.html'
             }).
             otherwise({ redirectTo: '/' });
     }).
@@ -26,7 +34,7 @@
 })
 
 restaurantApp.controller('navigationCtrl', function ($scope) {
-    $scope.tabVal = 3;
+    $scope.tabVal = 1;
     this.setTab = function (val) {
         $scope.tabVal = val;
     }
@@ -118,26 +126,14 @@ restaurantApp.controller('restaurantListCtrl', function ($scope, $http) {
 
 
 
-restaurantApp.controller('restaurantListCtrl1', function ($scope, $http) {
+restaurantApp.controller('topCompaniesListCtrl', function ($scope, $http, companies) {
 
-    $scope.restaurants = [];
-    //$http({ method: 'POST', url: '/AjaxHandler/GetRestautants' }).
-    $http({ method: 'POST', url: '/api/restaurant/GetAllRestaurants' }).
-    success(function (data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-        $scope.restaurants = data;
-
-    }).
-    error(function (data, status, headers, config) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
+    $scope.companies = [];
+    companies.list(function (companiesList) {
+        $scope.companies = companiesList;
     });
-
-    $scope.restaurantsPerPage = 5;
+    $scope.companiesPerPage = 9;
     $scope.currentPage = 0;
-
-
 
 
     $scope.prevPage = function () {
@@ -151,7 +147,7 @@ restaurantApp.controller('restaurantListCtrl1', function ($scope, $http) {
     };
 
     $scope.pageCount = function () {
-        return Math.ceil($scope.restaurants.length / $scope.restaurantsPerPage) - 1;
+        return Math.ceil($scope.companies.length / $scope.companiesPerPage) - 1;
     };
 
     $scope.nextPage = function () {
@@ -187,6 +183,24 @@ restaurantApp.controller('restaurantListCtrl1', function ($scope, $http) {
     
 });
 
+restaurantApp.factory('companies', function ($http) {
+    function getCompanyList(callback) {
+        $http({
+            method: 'POST',
+            url: '/api/company/GetAllCompanies',
+            cache: true
+        }).
+        success(callback).
+        error(function (data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+    }
+    
+    return {
+        list: getCompanyList,
+    }
+})
 
 restaurantApp.controller('examplesCtrl', function ($scope, $http) {
     $scope.sortOrder = 'lastName';
@@ -209,6 +223,22 @@ restaurantApp.controller('examplesCtrl', function ($scope, $http) {
 
 
 });
+
+restaurantApp.controller('companyCtrl', function ($scope, $routeParams) {
+
+    $scope.companyName = $routeParams.companyName;
+
+
+});
+
+
+restaurantApp.controller('unknownPageCtrl', function ($scope, $routeParams) {
+
+    $scope.unknownString = $routeParams.unknown;
+
+
+});
+
 
 
 

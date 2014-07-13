@@ -1,0 +1,25 @@
+﻿<div from="Luke" greet="audiances"></div>
+<div class="clearfix">
+<div class="clearfix">
+    <div data-ng-repeat="company in companies | offset: currentPage*companiesPerPage | 
+                limitTo: companiesPerPage "
+        class="col-md-4">
+        <a href="#/topCompanies/:companyName">
+            {{company.Name}}
+            <p>{{company.Rating}}</p>
+        </a>
+    </div>
+</div>
+<div>
+    <ul class="pagination">
+        <li data-ng-class="prevPageDisabled()">
+            <a data-ng-click="prevPage()">« Prev</a>
+        </li>
+        <li data-ng-repeat="n in range()" data-ng-class="{active: n == currentPage}" data-ng-click="setPage(n)">
+            <a>{{n+1}}</a>
+        </li>
+        <li data-ng-class="nextPageDisabled()">
+            <a data-ng-click="nextPage()">Next »</a>
+        </li>
+    </ul>
+</div>

@@ -206,8 +206,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AjaxHandlerController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
+    <Compile Include="Models\Company.cs" />
     <Compile Include="Models\JSONHelper.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -473,7 +475,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\vendor\jquery.ui.widget.js" />
-    <Content Include="Templates\about.html" />
+    <Content Include="Templates\404unknown.html" />
+    <Content Include="Templates\company.html" />
+    <Content Include="Templates\topCompanies.html" />
     <Content Include="Templates\angualrExamples.html" />
     <Content Include="Templates\RestaurantList.html" />
     <Content Include="Web.config" />
