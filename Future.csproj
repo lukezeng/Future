@@ -241,6 +241,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Angular\animation.css" />
     <Content Include="Content\Backload\content-types\128\Excel.png" />
     <Content Include="Content\Backload\content-types\128\File.png" />
     <Content Include="Content\Backload\content-types\128\FileNotFound.png" />
@@ -479,7 +480,7 @@
     <Content Include="Templates\company.html" />
     <Content Include="Templates\topCompanies.html" />
     <Content Include="Templates\angualrExamples.html" />
-    <Content Include="Templates\RestaurantList.html" />
+    <Content Include="Templates\ProfilePage.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

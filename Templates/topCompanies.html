@@ -1,9 +1,8 @@
 ﻿<div from="Luke" greet="audiances"></div>
+Search:<input type="text" data-ng-model="companyQuery" />
 <div class="clearfix">
-<div class="clearfix">
-    <div data-ng-repeat="company in companies | offset: currentPage*companiesPerPage | 
-                limitTo: companiesPerPage "
-        class="col-md-4">
+    <div class="repeater col-md-4" data-ng-repeat="company in companies | filter: companyQuery |offset: currentPage*companiesPerPage | 
+                limitTo: companiesPerPage ">
         <a href="#/topCompanies/{{company.Name}}">
             {{company.Name}}
             <p>{{company.Rating}}</p>

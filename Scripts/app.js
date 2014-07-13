@@ -1,12 +1,12 @@
-﻿var restaurantApp = angular.module('restaurantApp', ["ngRoute", "ngResource"]).
+﻿var restaurantApp = angular.module('restaurantApp', ["ngRoute", "ngResource","ngAnimate"]).
     config(function ($routeProvider) {
         $routeProvider.
             when('/', {
-                controller: 'restaurantListCtrl',
-                templateUrl: 'Templates/RestaurantList.html'
+                controller: 'ProfilePageCtrl',
+                templateUrl: 'Templates/ProfilePage.html'
             }).
             when('/topCompanies', {
-                controller: 'topCompaniesListCtrl',
+                controller: 'topCompaniesViewCtrl',
                 templateUrl: 'Templates/topCompanies.html'
             }).
             when('/topCompanies/:companyName', {
@@ -53,80 +53,27 @@ restaurantApp.filter('offset', function () {
     };
 });
 
-restaurantApp.controller('restaurantListCtrl', function ($scope, $http) {
-
-    $scope.restaurants = [];
-    //$http({ method: 'POST', url: '/AjaxHandler/GetRestautants' }).
-    $http({ method: 'POST', url: '/api/restaurant/GetAllRestaurants' }).
-    success(function (data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-        $scope.restaurants = data;
-
-    }).
-    error(function (data, status, headers, config) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-    });
-
-    $scope.restaurantsPerPage = 5;
-    $scope.currentPage = 0;
-
-
-
-
-    $scope.prevPage = function () {
-        if ($scope.currentPage > 0) {
-            $scope.currentPage--;
+restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {
+    $scope.items = [];
+    $scope.addItems = function () {
+        for (i = 10; i--;) {
+            $scope.items.push({ title: "item" + i, });
         }
-    };
+    }
+    $scope.clearItems = function () {
+        $scope.items = [];
+    }
+    $scope.removeItem = function (index) {
+        $scope.items.splice(index,1);
 
-    $scope.prevPageDisabled = function () {
-        return $scope.currentPage === 0 ? "disabled" : "";
-    };
-
-    $scope.pageCount = function () {
-        return Math.ceil($scope.restaurants.length / $scope.restaurantsPerPage) - 1;
-    };
-
-    $scope.nextPage = function () {
-        if ($scope.currentPage < $scope.pageCount()) {
-            $scope.currentPage++;
-        }
-    };
-
-    $scope.nextPageDisabled = function () {
-        return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
-    };
-
-    $scope.setPage = function (n) {
-        $scope.currentPage = n;
-    };
-
-    $scope.range = function () {
-        var rangeSize = 4;
-        var ret = [];
-        var start;
-
-        start = $scope.currentPage;
-        if (start > $scope.pageCount() - rangeSize) {
-            start = $scope.pageCount() - rangeSize + 1;
-        }
-
-        for (var i = start; i < start + rangeSize; i++) {
-            if (i - 1 < $scope.pageCount() && i >= 0) { ret.push(i); }
-        }
-        return ret;
-    };
-
-
+    }
 });
 
 
 
 
 
-restaurantApp.controller('topCompaniesListCtrl', function ($scope, $http, companies) {
+restaurantApp.controller('topCompaniesViewCtrl', function ($scope, $http, companies) {
 
     $scope.companies = [];
     companies.list(function (companiesList) {
