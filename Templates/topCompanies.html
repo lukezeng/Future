@@ -4,7 +4,7 @@
     <div data-ng-repeat="company in companies | offset: currentPage*companiesPerPage | 
                 limitTo: companiesPerPage "
         class="col-md-4">
-        <a href="#/topCompanies/:companyName">
+        <a href="#/topCompanies/{{company.Name}}">
             {{company.Name}}
             <p>{{company.Rating}}</p>
         </a>
