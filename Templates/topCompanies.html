@@ -23,24 +23,10 @@ Search:<input type="text" data-ng-model="companyQuery" />
     </ul>
 </div>
 <div class="clearfix">
-    <div class="repeater col-md-4" data-ng-repeat="companyCEO in companyCEOs | filter: companyQuery |offset: currentPage*companiesPerPage | 
-                limitTo: companiesPerPage track by $index">
+    <div class="repeater col-md-4" data-ng-repeat="companyCEO in companyCEOs">
         <a href="#/topCompanies/{{companyCEO.Name}}">
             {{companyCEO.Name}}
             <p>{{companyCEO.Age}}</p>
         </a>
     </div>
-</div>
-<div>
-    <ul class="pagination">
-        <li data-ng-class="prevPageDisabled()">
-            <a data-ng-click="prevPage()">« Prev</a>
-        </li>
-        <li data-ng-repeat="n in range()" data-ng-class="{active: n == currentPage}" data-ng-click="setPage(n)">
-            <a>{{n+1}}</a>
-        </li>
-        <li data-ng-class="nextPageDisabled()">
-            <a data-ng-click="nextPage()">Next »</a>
-        </li>
-    </ul>
 </div>

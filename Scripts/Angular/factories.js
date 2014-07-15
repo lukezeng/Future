@@ -1,21 +1,9 @@
-﻿restaurantApp.factory('companies', function ($http) {
-    function getCompanyList(callback) {
-        $http({
-            method: 'POST',
-            //url: '/api/company/GetAllCompanies',
-            url: 'api/Company/GetAllCompanies',
-            cache: true
-        }).
-        success(callback).
-        error(function (data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-        });
-    }
+﻿restaurantApp.factory('companies', function ($resource) {
+    var urlGetAllCompanies = 'rest/Company/GetAllCompanies/:id';
+    return $resource(
+                urlGetAllCompanies
+            );
 
-    return {
-        list: getCompanyList,
-    }
 })
 
 restaurantApp.factory('companyCEOs', function ($http) {

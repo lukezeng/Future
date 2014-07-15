@@ -19,7 +19,7 @@ namespace Future.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("GetAllCompanies")]
         public List<Company> GetAllCompanies()
         {

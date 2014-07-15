@@ -32,11 +32,9 @@ restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {
 
 restaurantApp.controller('topCompaniesViewCtrl', function ($scope, $http, companies,companyCEOs) {
 
-    $scope.companies = [];
+    $scope.companies = companies.query();
     $scope.companyCEOs = [];
-    companies.list(function (companiesList) {
-        $scope.companies = companiesList;
-    });
+
     companyCEOs.list(function (companyCEOsList) {
         $scope.companyCEOs = companyCEOsList;
     });

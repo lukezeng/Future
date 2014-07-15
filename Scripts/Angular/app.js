@@ -2,8 +2,8 @@
     config(function ($routeProvider,$locationProvider) {
         $routeProvider.
             when('/', {
-                controller: 'topCompaniesViewCtrl',
-                templateUrl: '/Templates/topCompanies.html'
+                controller: 'ProfilePageCtrl',
+                templateUrl: '/Templates/ProfilePage.html'
             }).
             when('/topCompanies', {
                 controller: 'topCompaniesViewCtrl',
