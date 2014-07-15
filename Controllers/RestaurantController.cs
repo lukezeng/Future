@@ -1,4 +1,5 @@
 ﻿using Future.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,7 @@ namespace Future.Controllers
             restaurants.Add(new Restaurant { Name = "Second Rdfg", Review = "fdgsdgfsdfg" });
             restaurants.Add(new Restaurant { Name = "Second Rfgh", Review = "fdgsdgfsdfg" });
 
+            JsonConvert.SerializeObject(restaurants);
             return restaurants;
         }
 

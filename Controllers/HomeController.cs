@@ -23,13 +23,6 @@ namespace Future.Controllers
             return View();
         }
 
-        public ActionResult TestingAngularJS()
-        {
-            ViewBag.Message = "This is the ViewBag.Message of the Index Page.";
-
-            return View();
-        }
-
         public ActionResult About()
         {
             //This is testing the build-in SqlClient 

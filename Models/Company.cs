@@ -13,4 +13,11 @@ namespace Future.Models
         public string ImageUrl { get; set; }
         public int GDP { get; set; }
     }
+
+    public class CompanyCEO
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
 }

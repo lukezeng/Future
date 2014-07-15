@@ -1,10 +1,13 @@
 ﻿using Future.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace Future.Controllers
 {
@@ -16,13 +19,8 @@ namespace Future.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/company/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         [HttpPost]
+        [ActionName("GetAllCompanies")]
         public List<Company> GetAllCompanies()
         {
 
@@ -56,17 +54,55 @@ namespace Future.Controllers
             companies.Add(new Company { Name = "Morgan Stanley", Rating = "fdgsdgfsdfg" });
             companies.Add(new Company { Name = "The Blackstone Group", Rating = "fdgsdgfsdfg" });
 
+
+            //Restaurants.Add(new Restaurant { Name = "Second Rfgh", Review = "fdgsdgfsdfg" });
+            //var serializer = new JavaScriptSerializer();
+            //var serializedResult = serializer.Serialize(companies);
+
             return companies;
         }
 
-        // PUT api/company/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPost]
+        [ActionName("GetAllCompanyCEOs")]
+        public List<CompanyCEO> GetAllCompanyCEOs()
         {
-        }
 
-        // DELETE api/company/5
-        public void Delete(int id)
-        {
+            List<CompanyCEO> companyCEOs = new List<CompanyCEO>{
+                   new CompanyCEO{Name = "Google CEO", Age=50},
+                   new CompanyCEO{Name = "Amazon CEO", Age=50},
+                   new CompanyCEO{Name = "Goldman Sachs & Co CEO", Age=50},
+                   new CompanyCEO{Name = "J.P Morgen CEO", Age=50},
+                   new CompanyCEO{Name = "salesforce.com CEO", Age=50},
+                   new CompanyCEO{Name = "Intuit CEO", Age=50},
+                   new CompanyCEO{Name = "Wegmans Food Markets CEO", Age=50},
+                   new CompanyCEO{Name = "Cisco CEO", Age=50},
+                   new CompanyCEO{Name = "Marriott International CEO", Age=50},
+                   new CompanyCEO{Name = "Deloitte CEO", Age=50},
+                   new CompanyCEO{Name = "PricewaterhouseCoopers CEO", Age=50},
+                   new CompanyCEO{Name = "Ernst & Young CEO", Age=50},
+                   new CompanyCEO{Name = "KPMG CEO", Age=50},
+                   new CompanyCEO{Name = "Adobe Systems CEO", Age=50}
+                   };
+            companyCEOs.Add(new CompanyCEO { Name = "Intel CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "Microsoft CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "Accenture CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "Four Seasons Hotels CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "Hyatt Hotels CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "HSBC CEO", Age=50 });
+
+            companyCEOs.Add(new CompanyCEO { Name = "Swire CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "Bank of America Corp CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "Barclays CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "Credit Suisse CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "Morgan Stanley CEO", Age=50 });
+            companyCEOs.Add(new CompanyCEO { Name = "The Blackstone Group CEO", Age=50 });
+
+
+            //Restaurants.Add(new Restaurant { Name = "Second Rfgh", Review = "fdgsdgfsdfg" });
+            //var serializer = new JavaScriptSerializer();
+            //var serializedResult = serializer.Serialize(companies);
+
+            return companyCEOs;
         }
     }
 }
