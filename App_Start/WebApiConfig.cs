@@ -17,7 +17,7 @@ namespace Future
 
             config.Routes.MapHttpRoute(
                 name: "RESTApi",
-                routeTemplate: "rest/{controller}/{action}/{id}",
+                routeTemplate: "rest/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

@@ -1,10 +1,16 @@
 ﻿<div from="Luke" greet="audiances"></div>
+<h2>New Dream Company</h2><br />
+Company name:<input type="text" ng-model="company.Name" /><br />
+Company Rating:<input type="text" ng-model="company.Rating" /><br />
+Company GDP:<input type="text" ng-model="company.GDP" /><br />
+<button ng-click="SaveCompany()">Save Dream Company</button><br />
+
+
 Search:<input type="text" data-ng-model="companyQuery" />
 <div class="clearfix">
     <div class="repeater col-md-4" data-ng-repeat="company in companies | filter: companyQuery |offset: currentPage*companiesPerPage | 
                 limitTo: companiesPerPage track by $index">
-        <a href="#/topCompanies/{{company.Name}}">
-            {{company.Name}}
+        <a href="#/topCompanies/{{company.Name}}">{{company.Name}}
             <p>{{company.Rating}}</p>
         </a>
     </div>
@@ -21,12 +27,4 @@ Search:<input type="text" data-ng-model="companyQuery" />
             <a data-ng-click="nextPage()">Next »</a>
         </li>
     </ul>
-</div>
-<div class="clearfix">
-    <div class="repeater col-md-4" data-ng-repeat="companyCEO in companyCEOs">
-        <a href="#/topCompanies/{{companyCEO.Name}}">
-            {{companyCEO.Name}}
-            <p>{{companyCEO.Age}}</p>
-        </a>
-    </div>
 </div>

@@ -10,8 +10,9 @@
 
 });
 
-restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {
+restaurantApp.controller('ProfilePageCtrl', function ($scope, $http, getSeat) {
     $scope.items = [];
+    $scope.seat = 100;
     $scope.addItems = function () {
         for (i = 10; i--;) {
             $scope.items.push({ title: "item" + i, });
@@ -24,22 +25,25 @@ restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {
         $scope.items.splice(index, 1);
 
     }
+
+    getSeat.list(function (getSeat) {
+        $scope.seat = getSeat;
+    });
 });
 
 
 
 
 
-restaurantApp.controller('topCompaniesViewCtrl', function ($scope, $http, companies,companyCEOs) {
-
+restaurantApp.controller('topCompaniesViewCtrl', function ($scope, $http, companies) {
+    $scope.company = {};
     $scope.companies = companies.query();
-    $scope.companyCEOs = [];
-
-    companyCEOs.list(function (companyCEOsList) {
-        $scope.companyCEOs = companyCEOsList;
-    });
     $scope.companiesPerPage = 9;
     $scope.currentPage = 0;
+
+    $scope.SaveCompany = function () {
+        $scope.companies.push($scope.company);
+    }
 
 
     $scope.prevPage = function () {

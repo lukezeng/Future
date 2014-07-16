@@ -210,6 +210,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
+    <Compile Include="Migrations\201407160038544_addCompany.cs" />
+    <Compile Include="Migrations\201407160038544_addCompany.Designer.cs">
+      <DependentUpon>201407160038544_addCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407160050563_addCompany3.cs" />
+    <Compile Include="Migrations\201407160050563_addCompany3.Designer.cs">
+      <DependentUpon>201407160050563_addCompany3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\JSONHelper.cs" />
     <Compile Include="Models\Restaurant.cs" />
@@ -862,6 +870,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406092104179_AddProfilePic.resx">
       <DependentUpon>201406092104179_AddProfilePic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407160038544_addCompany.resx">
+      <DependentUpon>201407160038544_addCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407160050563_addCompany3.resx">
+      <DependentUpon>201407160050563_addCompany3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
