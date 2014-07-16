@@ -1,22 +1,37 @@
 ﻿<div from="Luke" greet="audiances"></div>
 <h2>New Dream Company</h2><br />
-Company name:<input type="text" ng-model="company.Name" /><br />
-Company Rating:<input type="text" ng-model="company.Rating" /><br />
-Company GDP:<input type="text" ng-model="company.GDP" /><br />
-<button ng-click="SaveCompany()">Save Dream Company</button><br />
+<div class="col-md-6">
+    <div class="input-group col-md-6">
+        <span class="input-group-addon">Company name:</span>
+        <input type="text" ng-model="company.Name" /><br />
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="input-group col-md-6">
+        <span class="input-group-addon">Company Rating:</span>
+        <input type="text" ng-model="company.Rating" /><br />
+    </div>
+</div>
+ <button type="button" class="btn btn-default" ng-click="SaveCompany()">Save Dream Company</button>
 
 
-Search:<input type="text" data-ng-model="companyQuery" />
+<div class="">
+    <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span>Search</span>
+        <input type="text" data-ng-model="companyQuery" />
+    </div>
+</div>
+
 <div class="clearfix">
-    <div class="repeater col-md-4" data-ng-repeat="company in companies | filter: companyQuery |offset: currentPage*companiesPerPage | 
+    <div style="height:100px;" class="repeater col-md-4" data-ng-repeat="company in companies | filter: companyQuery |offset: currentPage*companiesPerPage | 
                 limitTo: companiesPerPage track by $index">
-        <a href="#/topCompanies/{{company.Name}}">{{company.Name}}
-            <p>{{company.Rating}}</p>
-        </a>
+        <a href="#/topCompanies/{{company.Name}}">{{company.Name}}</a>
+            <div>{{company.Rating}}</div>
+        
     </div>
 </div>
 <div>
-    <ul class="pagination">
+    <ul class="pagination pagination-sm">
         <li data-ng-class="prevPageDisabled()">
             <a data-ng-click="prevPage()">« Prev</a>
         </li>

@@ -16,6 +16,13 @@ namespace Future
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                        "~/Scripts/Angular/app.js",
+                        "~/Scripts/Angular/Controllers.js",
+                        "~/Scripts/Angular/factories.js",
+                        "~/Scripts/Angular/filters.js", 
+                        "~/Scripts/Angular/directives.js",
+                        "~/Scripts/angular-touch.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",

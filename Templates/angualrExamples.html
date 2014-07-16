@@ -1,5 +1,4 @@
-﻿<hr />
-{{textToShow}}
+﻿{{textToShow}}
 <hr />
 <ul>
     <li data-ng-repeat="name in nameList">{{name}}</li>
@@ -24,3 +23,9 @@ Search:<input type="text" data-ng-model="searchQuery" />
     <input type="submit" value="Add Name to nameList" />
 </form>
 <hr />
+<button ng-click="addItems()">add</button>
+<button ng-click="clearItems()">clear</button>
+<hr />
+<button class="repeater" ng-repeat="item in items" ng-click="removeItem($index)">
+    {{item.title}}
+</button>

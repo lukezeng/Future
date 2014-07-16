@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,43 +17,92 @@ namespace Future.Controllers
         // GET api/company
         public IEnumerable<Company> Get()
         {
-            List<Company> companies = new List<Company>{
-                   new Company{Name = "Google", Rating = "This is asdadasdasda"},
-                   new Company{Name = "Amazon", Rating = "fdgsdgfsdfg"},
-                   new Company{Name = "Goldman Sachs & Co", Rating = "This is asdadasdasda"},
-                   new Company{Name = "J.P Morgen", Rating = "fdgsdgfsdfg"},
-                   new Company{Name = "salesforce.com", Rating = "This is asdadasdasda"},
-                   new Company{Name = "Intuit", Rating = "fdgsdgfsdfg"},
-                   new Company{Name = "Wegmans Food Markets", Rating = "This is asdadasdasda"},
-                   new Company{Name = "Cisco", Rating = "fdgsdgfsdfg"},
-                   new Company{Name = "Marriott International", Rating = "This is asdadasdasda"},
-                   new Company{Name = "Deloitte", Rating = "fdgsdgfsdfg"},
-                   new Company{Name = "PricewaterhouseCoopers", Rating = "This is asdadasdasda"},
-                   new Company{Name = "Ernst & Young", Rating = "fdgsdgfsdfg"},
-                   new Company{Name = "KPMG", Rating = "This is asdadasdasda"},
-                   new Company{Name = "Adobe Systems", Rating = "fdgsdgfsdfg"}
-                   };
-            companies.Add(new Company { Name = "Intel", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "Microsoft", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "Accenture", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "Four Seasons Hotels", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "Hyatt Hotels", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "HSBC", Rating = "fdgsdgfsdfg" });
+            List<Company> companies = new List<Company> { };
+            //This is testing the build-in SqlClient 
+            //Connection tested sucessfully on 11/6/2013
+            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            SqlDataReader rdr = null;
+            try
+            {
+                // 2. Open the connection
+                conn.Open();
 
-            companies.Add(new Company { Name = "Swire", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "Bank of America Corp", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "Barclays", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "Credit Suisse", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "Morgan Stanley", Rating = "fdgsdgfsdfg" });
-            companies.Add(new Company { Name = "The Blackstone Group", Rating = "fdgsdgfsdfg" });
+                // 3. Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Companies", conn);
 
+                //
+                // 4. Use the connection
+                //
+
+                // get query results
+                rdr = cmd.ExecuteReader();
+
+                // print the Title of each Movie
+                while (rdr.Read())
+                {
+                    companies.Add(new Company { Name = rdr.GetString(1), Rating = rdr.GetString(2) });
+                }
+            }
+            finally
+            {
+                // close the reader
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+
+                // 5. Close the connection
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
             return companies;
         }
 
         // GET api/company/5
         public IEnumerable<Company> Get(int id)
         {
-            List<Company> companies = new List<Company> { new Company { Name = "Google", Rating = "This is asdadasdasda" }  };
+            List<Company> companies = new List<Company> { };
+            //This is testing the build-in SqlClient 
+            //Connection tested sucessfully on 11/6/2013
+            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            SqlDataReader rdr = null;
+            try
+            {
+                // 2. Open the connection
+                conn.Open();
+
+                // 3. Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Companies WHERE Id=" + id, conn);
+
+                //
+                // 4. Use the connection
+                //
+
+                // get query results
+                rdr = cmd.ExecuteReader();
+
+                // print the Title of each Movie
+                while (rdr.Read())
+                {
+                    companies.Add(new Company { Name = rdr.GetString(1), Rating = rdr.GetString(2) });
+                }
+            }
+            finally
+            {
+                // close the reader
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+
+                // 5. Close the connection
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
             return companies;
         }
 

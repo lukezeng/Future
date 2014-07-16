@@ -1,5 +1,5 @@
 ﻿restaurantApp.controller('navigationCtrl', function ($scope) {
-    //$scope.tabVal = 1;
+    $scope.tabVal = 1;
     this.setTab = function (val) {
         $scope.tabVal = val;
     }
@@ -10,32 +10,15 @@
 
 });
 
-restaurantApp.controller('ProfilePageCtrl', function ($scope, $http, getSeat) {
-    $scope.items = [];
-    $scope.seat = 100;
-    $scope.addItems = function () {
-        for (i = 10; i--;) {
-            $scope.items.push({ title: "item" + i, });
-        }
-    }
-    $scope.clearItems = function () {
-        $scope.items = [];
-    }
-    $scope.removeItem = function (index) {
-        $scope.items.splice(index, 1);
+restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {
 
-    }
-
-    getSeat.list(function (getSeat) {
-        $scope.seat = getSeat;
-    });
 });
 
 
 
 
 
-restaurantApp.controller('topCompaniesViewCtrl', function ($scope, $http, companies) {
+restaurantApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies', function ($scope, $http, companies) {
     $scope.company = {};
     $scope.companies = companies.query();
     $scope.companiesPerPage = 9;
@@ -91,7 +74,7 @@ restaurantApp.controller('topCompaniesViewCtrl', function ($scope, $http, compan
     };
 
 
-});
+}]);
 
 
 restaurantApp.controller('examplesCtrl', function ($scope, $http) {
@@ -113,6 +96,20 @@ restaurantApp.controller('examplesCtrl', function ($scope, $http) {
         $scope.userLastName = '';
     }
 
+
+    $scope.items = [];
+    $scope.addItems = function () {
+        for (i = 10; i--;) {
+            $scope.items.push({ title: "item" + i, });
+        }
+    }
+    $scope.clearItems = function () {
+        $scope.items = [];
+    }
+    $scope.removeItem = function (index) {
+        $scope.items.splice(index, 1);
+
+    }
 
 });
 

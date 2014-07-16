@@ -11,12 +11,21 @@
     @Styles.Render("~/Content/Angular/animation.css")
             
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-animate.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-sanitize.js")
+    @Scripts.Render("~/Scripts/Angular/app.js")
+    @Scripts.Render("~/Scripts/Angular/Controllers.js")
+    @Scripts.Render("~/Scripts/Angular/factories.js")
+    @Scripts.Render("~/Scripts/Angular/filters.js")
+    @Scripts.Render("~/Scripts/Angular/directives.js")
+
+
 
     
     @RenderSection("header", required: false)
@@ -38,7 +47,7 @@
                 <section id="login">
                     @Html.Partial("_LoginPartial")
                 </section>
-                <nav>
+                <nav class="hidden">
                     <ul class="nav nav-pills" data-ng-controller="navigationCtrl as navCtrl">
                         <li data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)">@Html.ActionLink("Home", "Index", "Home")</li>
                         <li data-ng-class="{active:navCtrl.isSet(2)}" data-ng-click="navCtrl.setTab(2)">@Html.ActionLink("About", "About", "Home")</li>
@@ -50,6 +59,13 @@
                             {
                                 <li>@Html.ActionLink("My Profile", "MyProfile", "Home")</li>                            }
                         }
+                    </ul>
+                </nav>
+                <nav>
+                    <ul class="nav nav-pills" data-ng-controller="navigationCtrl as navCtrl">
+                        <li data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)"><a href="/#/">Profile</a></li>
+                        <li data-ng-class="{active:navCtrl.isSet(2)}" data-ng-click="navCtrl.setTab(2)"><a href="/#/topCompanies">Dream Companies</a></li>
+                        <li data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)"><a href="/#/angualrExamples">Examples</a></li>
                     </ul>
                 </nav>
             </div>
@@ -69,12 +85,7 @@
         </div>
     </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/Scripts/Angular/app.js")
-    @Scripts.Render("~/Scripts/Angular/Controllers.js")
-    @Scripts.Render("~/Scripts/Angular/factories.js")
-    @Scripts.Render("~/Scripts/Angular/filters.js")
+
    
     
     @RenderSection("scripts", required: false)

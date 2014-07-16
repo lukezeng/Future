@@ -443,8 +443,10 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\Angular\Controllers.js" />
+    <Content Include="Scripts\Angular\directives.js" />
     <Content Include="Scripts\Angular\factories.js" />
     <Content Include="Scripts\Angular\filters.js" />
+    <Content Include="Scripts\Angular\ui-bootstrap-tpls-0.11.0.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -851,6 +853,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\ProfilePic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
