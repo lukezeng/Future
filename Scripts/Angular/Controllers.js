@@ -1,5 +1,4 @@
 ﻿restaurantApp.controller('navigationCtrl', function ($scope) {
-    $scope.tabVal = 1;
     this.setTab = function (val) {
         $scope.tabVal = val;
     }
@@ -19,6 +18,7 @@ restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {
 
 
 restaurantApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies', function ($scope, $http, companies) {
+
     $scope.company = {};
     $scope.companies = companies.query();
     $scope.companiesPerPage = 9;
@@ -78,6 +78,7 @@ restaurantApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies'
 
 
 restaurantApp.controller('examplesCtrl', function ($scope, $http) {
+
     $scope.sortOrder = 'lastName';
     $scope.textToShow = "here is the text to show";
     $scope.nameList = ['Luke', 'Kaixin', 'Jianmin'];
@@ -127,3 +128,20 @@ restaurantApp.controller('unknownPageCtrl', function ($scope, $routeParams) {
 
 
 });
+
+
+function AlertDemoCtrl($scope) {
+  $scope.alerts = [
+    { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
+    { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
+  ];
+
+  $scope.addAlert = function() {
+    $scope.alerts.push({msg: 'Another alert!'});
+  };
+
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  };
+
+}
