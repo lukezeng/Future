@@ -422,6 +422,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Images\ProfilePic\10403482_701593889901774_5915822839683500703_n.jpg" />
+    <Content Include="Images\ProfilePic\large_3xir_54577e019117.jpg" />
     <Content Include="index.html" />
     <Content Include="README.md" />
     <None Include="Properties\PublishProfiles\vifuture.com - Web Deploy.pubxml" />
@@ -795,9 +797,10 @@
     <Content Include="Scripts\vendor\jquery.ui.widget.js" />
     <Content Include="Templates\404unknown.html" />
     <Content Include="Templates\company.html" />
+    <Content Include="Templates\ProfilePage.html" />
     <Content Include="Templates\topCompanies.html" />
     <Content Include="Templates\angualrExamples.html" />
-    <Content Include="Templates\ProfilePage.html" />
+    <Content Include="Templates\ProfilePage1.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -853,7 +856,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\ProfilePic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

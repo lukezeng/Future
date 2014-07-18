@@ -5,6 +5,10 @@
                 controller: 'ProfilePageCtrl',
                 templateUrl: '/Templates/ProfilePage.html'
             }).
+            when('/casual', {
+                controller: 'ProfilePageCtrl',
+                templateUrl: '/Templates/ProfilePage1.html'
+            }).
             when('/topCompanies', {
                 controller: 'topCompaniesViewCtrl',
                 templateUrl: '/Templates/topCompanies.html'

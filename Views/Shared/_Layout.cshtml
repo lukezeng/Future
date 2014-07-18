@@ -63,9 +63,10 @@
                 </nav>
                 <nav>
                     <ul class="nav nav-pills" data-ng-controller="navigationCtrl as navCtrl">
-                        <li data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)"><a href="/#/">Profile</a></li>
-                        <li data-ng-class="{active:navCtrl.isSet(2)}" data-ng-click="navCtrl.setTab(2)"><a href="/#/topCompanies">Dream Companies</a></li>
-                        <li data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)"><a href="/#/angualrExamples">Examples</a></li>
+                        <li data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)"><a href="/#/">Professional</a></li>
+                        <li data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)"><a href="/#/casual">Casual</a></li>
+                        <li data-ng-class="{active:navCtrl.isSet(2)}" data-ng-click="navCtrl.setTab(2)"><a href="/#/topCompanies">My Dreams</a></li>
+                        <li class="hidden" data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)"><a href="/#/angualrExamples">Examples</a></li>
                     </ul>
                 </nav>
             </div>
@@ -74,9 +75,6 @@
     <div id="body">
         @RenderSection("featured", required: false)
         <section class="content-wrapper main-content clear-fix">
-            <div ng-controller="AlertDemoCtrl">
-              <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-            </div>
             @RenderBody()
         </section>
     </div>

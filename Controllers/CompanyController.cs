@@ -40,7 +40,7 @@ namespace Future.Controllers
                 // print the Title of each Movie
                 while (rdr.Read())
                 {
-                    companies.Add(new Company { Name = rdr.GetString(1), Rating = rdr.GetString(2) });
+                    companies.Add(new Company { Id = rdr.GetInt32(0), Name = rdr.GetString(1), Rating = rdr.GetString(2) });
                 }
             }
             finally
@@ -86,7 +86,7 @@ namespace Future.Controllers
                 // print the Title of each Movie
                 while (rdr.Read())
                 {
-                    companies.Add(new Company { Name = rdr.GetString(1), Rating = rdr.GetString(2) });
+                    companies.Add(new Company { Id = rdr.GetInt32(0), Name = rdr.GetString(1), Rating = rdr.GetString(2) });
                 }
             }
             finally
@@ -107,13 +107,65 @@ namespace Future.Controllers
         }
 
         // PUT api/company/5
-        public void Put(int id, [FromBody]string value)
+        public string Save(Company company)
         {
+            List<Company> companies = new List<Company> { };
+            //This is testing the build-in SqlClient 
+            //Connection tested sucessfully on 11/6/2013
+            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            try
+            {
+                // 2. Open the connection
+                conn.Open();
+
+                // 3. Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand("INSERT INTO Companies (Name, Rating) VALUES ('" +company.Name + "', '" + company.Rating + "');" , conn);
+
+                //
+                // 4. Use the connection
+                //
+                cmd.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                // 5. Close the connection
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return "INSERT INTO Companies (Name, Rating) VALUES ('" + company.Name + "', '" + company.Rating + "');";
         }
 
         // DELETE api/company/5
         public void Delete(int id)
         {
+            //This is testing the build-in SqlClient 
+            //Connection tested sucessfully on 11/6/2013
+            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            try
+            {
+                // 2. Open the connection
+                conn.Open();
+
+                // 3. Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand("DELETE FROM companies where id = " + id, conn);
+
+                //
+                // 4. Use the connection
+                //
+                cmd.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                // 5. Close the connection
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
         }
     }
 }

@@ -20,13 +20,27 @@ restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {
 restaurantApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies', function ($scope, $http, companies) {
 
     $scope.company = {};
-    $scope.companies = companies.query();
-    $scope.companiesPerPage = 9;
+    $scope.companies = companies.get();
+    $scope.companiesPerPage = 900;
     $scope.currentPage = 0;
 
-    $scope.SaveCompany = function () {
-        $scope.companies.push($scope.company);
+    $scope.Save = function (company) {
+        companies.save(company).$promise.then(
+            function () {
+                $scope.companies.push(company);
+            },
+            function () { alert("NONO");});
+        $scope.company = {};
     }
+
+    $scope.DeleteCompany = function (Id) {
+        companies.remove(Id).$promise.then(
+            function () {
+                $scope.companies = companies.get();
+            },
+            function () { alert("NONO"); });
+    }
+
 
 
     $scope.prevPage = function () {
@@ -78,6 +92,19 @@ restaurantApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies'
 
 
 restaurantApp.controller('examplesCtrl', function ($scope, $http) {
+
+    $scope.alerts = [
+      { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
+      { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
+    ];
+
+    $scope.addAlert = function () {
+        $scope.alerts.push({ msg: 'Another alert!' });
+    };
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
 
     $scope.sortOrder = 'lastName';
     $scope.textToShow = "here is the text to show";
@@ -131,17 +158,6 @@ restaurantApp.controller('unknownPageCtrl', function ($scope, $routeParams) {
 
 
 function AlertDemoCtrl($scope) {
-  $scope.alerts = [
-    { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
-    { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
-  ];
 
-  $scope.addAlert = function() {
-    $scope.alerts.push({msg: 'Another alert!'});
-  };
-
-  $scope.closeAlert = function(index) {
-    $scope.alerts.splice(index, 1);
-  };
 
 }

@@ -1,4 +1,12 @@
-﻿
+﻿<p>
+    <button popover="I appeared on mouse enter!" popover-trigger="mouseenter" class="btn btn-default">Mouseenter</button>
+</p>
+<input type="text" value="Click me!" popover="I appeared on focus! Click away and I'll vanish..." popover-trigger="focus" class="form-control">
+
+<hr />
+<div ng-controller="AlertDemoCtrl">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
 <hr />
 
 {{textToShow}}
