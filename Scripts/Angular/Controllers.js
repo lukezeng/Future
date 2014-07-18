@@ -1,12 +1,7 @@
-﻿restaurantApp.controller('navigationCtrl', function ($scope) {
-    this.setTab = function (val) {
-        $scope.tabVal = val;
-    }
-
-    this.isSet = function (val) {
-        return $scope.tabVal === val;
-    }
-
+﻿restaurantApp.controller('navigationCtrl', function ($scope, $location) {
+    $scope.isActive = function (route) {
+        return route === $location.path();
+    };
 });
 
 restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {

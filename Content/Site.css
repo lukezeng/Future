@@ -9,6 +9,12 @@
 }
 
 
+
+
+#topNav ul {
+    display: inline-block;
+    list-style-type: none;
+}
 /*----------------SlideJS CSS--------------*/
 
 .homeIndexSlideShowContainer {
@@ -123,7 +129,6 @@ a:active {
 }
 
 /*----------------End Of SlideJS CSS--------------*/
-
 
 
 html {
