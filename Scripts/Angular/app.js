@@ -1,4 +1,4 @@
-﻿var restaurantApp = angular.module('restaurantApp', ["ngRoute", "ngResource", "ngAnimate","ui.bootstrap"]).
+﻿var mainApp = angular.module('restaurantApp', ["ngRoute", "ngResource", "ngAnimate","ui.bootstrap"]).
     config(function ($routeProvider, $locationProvider) {
         $routeProvider.
             when('/', {

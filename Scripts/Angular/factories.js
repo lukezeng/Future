@@ -1,4 +1,4 @@
-﻿restaurantApp.factory('companies', function ($resource) {
+﻿mainApp.factory('companies', function ($resource) {
     var webAPI = 'rest/Company/:id';
     return {
         get:function(){ return $resource(webAPI).query() },

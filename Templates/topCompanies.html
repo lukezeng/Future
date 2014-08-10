@@ -5,23 +5,21 @@
         <h2 class="panel-title">One More Dream<small> You help me.</small></h2>
     </div>
     <div class="panel-body">
-        <form role="form" name="dreamCompanyForm" novalidate>
-                <div class="col-md-6 form-group">
-                    <div class="input-group input-group-sm col-md-6">
-                        <span class="input-group-addon">Company name</span>
-                        <input name="companyName" type="text" popover="I may meet you here!" popover-trigger="focus" ng-model="company.Name" required /><br />
-                    </div>
-                    <span class="text-danger" ng-show="dreamCompanyForm.companyName.$error.required&&dreamCompanyForm.companyName.$dirty">Tell me your company.</span>
+        <form role="form" name="dreamCompanyForm" novalidate>            
+            <div class="col-md-6 form-group">
+                <label for="exampleInputEmail1">Company name</label>
+                <input class="form-control" name="companyName" type="text" popover="I may meet you here!" popover-trigger="focus" ng-model="company.Name" required /><br />
+                <span class="text-danger" ng-show="dreamCompanyForm.companyName.$error.required&&dreamCompanyForm.companyName.$dirty">Tell me your company.</span>
+            </div>
+            <div class="col-md-6 form-group clearfix">
+                <div class="input-group input-group-sm col-md-6">
+                    <span class="input-group-addon">Company Rating</span>
+                    <input name="companyRating" type="text" popover="" popover-trigger="focus" ng-model="company.Rating" required /><br />
                 </div>
-                <div class="col-md-6 form-group clearfix">
-                    <div class="input-group input-group-sm col-md-6">
-                        <span class="input-group-addon">Company Rating</span>
-                        <input name="companyRating" type="text" popover="" popover-trigger="focus" ng-model="company.Rating" required /><br />
-                    </div>
-                    <span class="text-danger" ng-show="dreamCompanyForm.companyRating.$error.required&&dreamCompanyForm.companyRating.$dirty">Tell me something about the company.</span>
-                </div>
-            <div class="col-md-12" style="text-align:center;">
-                <button type="button" class="btn btn-default"  popover="I appeared on mouse enter!" popover-trigger="mouseenter" ng-disabled="dreamCompanyForm.$invalid" ng-click="Save(company);dreamCompanyForm.$setPristine()">Save Dream Company</button>
+                <span class="text-danger" ng-show="dreamCompanyForm.companyRating.$error.required&&dreamCompanyForm.companyRating.$dirty">Tell me something about the company.</span>
+            </div>
+            <div class="col-md-12" style="text-align: center;">
+                <button type="button" class="btn btn-default" popover="I appeared on mouse enter!" popover-trigger="mouseenter" ng-disabled="dreamCompanyForm.$invalid" ng-click="Save(company);dreamCompanyForm.$setPristine()">Save Dream Company</button>
             </div>
         </form>
     </div>
@@ -29,17 +27,17 @@
 
 
 <div class="clearfix">
-    <div style="margin:0 auto;" class="input-group">
+    <div style="margin: 0 auto;" class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span>Search</span>
         <input type="text" data-ng-model="companyQuery" />
     </div>
 </div>
 
 <div class="clearfix">
-    <div style="padding:15px;height:100px;"class="repeater col-md-4" data-ng-repeat="company in companies | filter: companyQuery |offset: currentPage*companiesPerPage | 
+    <div style="padding: 15px; height: 100px;" class="repeater col-md-4" data-ng-repeat="company in companies | filter: companyQuery |offset: currentPage*companiesPerPage | 
                 limitTo: companiesPerPage track by $index">
         {{company.Name}}        
-         <button style="float:right;" type="button" class="btn btn-default btn-xs hidden" ng-click="DeleteCompany(company.Id)">delete</button>
+         <button style="float: right;" type="button" class="btn btn-default btn-xs hidden" ng-click="DeleteCompany(company.Id)">delete</button>
         <br />
         {{company.Rating}}
     </div>

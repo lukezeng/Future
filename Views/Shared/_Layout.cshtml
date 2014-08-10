@@ -6,23 +6,21 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
 @*    @Styles.Render("~/Content/css")*@
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    @Styles.Render("~/Content/Angular/animation.css")
-
-@*    @Scripts.Render("~/bundles/modernizr")*@
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
+    <link rel="stylesheet" href="~/Content/normalize.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"><!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"><!-- Optional theme -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script><!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-2.1.1.js"></script><!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script><!-- Latest compiled and minified JavaScript -->
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-animate.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-cookies.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-resource.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-route.js")
     @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-sanitize.js")
+
+    @* Customized *@
+    @Styles.Render("~/Content/Angular/animation.css")
     @Scripts.Render("~/Scripts/Angular/app.js")
     @Scripts.Render("~/Scripts/Angular/Controllers.js")
     @Scripts.Render("~/Scripts/Angular/factories.js")
@@ -65,7 +63,7 @@
             </div>
         </div>
     </header>
-    <div id="body">
+    <div id="body" class="container">
         @RenderSection("featured", required: false)
         <section class="content-wrapper main-content clear-fix">
             @RenderBody()

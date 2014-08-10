@@ -1,18 +1,16 @@
-﻿restaurantApp.controller('navigationCtrl', function ($scope, $location) {
+﻿mainApp.controller('navigationCtrl', function ($scope, $location) {
     $scope.isActive = function (route) {
         return route === $location.path();
     };
 });
 
-restaurantApp.controller('ProfilePageCtrl', function ($scope, $http) {
+mainApp.controller('ProfilePageCtrl', function ($scope, $http) {
 
 });
 
 
 
-
-
-restaurantApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies', function ($scope, $http, companies) {
+mainApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies', function ($scope, $http, companies) {
 
     $scope.company = {};
     $scope.companies = companies.get();
@@ -86,7 +84,7 @@ restaurantApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies'
 }]);
 
 
-restaurantApp.controller('examplesCtrl', function ($scope, $http) {
+mainApp.controller('examplesCtrl', function ($scope, $http) {
 
     $scope.alerts = [
       { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
@@ -136,7 +134,7 @@ restaurantApp.controller('examplesCtrl', function ($scope, $http) {
 
 });
 
-restaurantApp.controller('companyCtrl', function ($scope, $routeParams) {
+mainApp.controller('companyCtrl', function ($scope, $routeParams) {
 
     $scope.companyName = $routeParams.companyName;
 
@@ -144,7 +142,7 @@ restaurantApp.controller('companyCtrl', function ($scope, $routeParams) {
 });
 
 
-restaurantApp.controller('unknownPageCtrl', function ($scope, $routeParams) {
+mainApp.controller('unknownPageCtrl', function ($scope, $routeParams) {
 
     $scope.unknownString = $routeParams.unknown;
 
