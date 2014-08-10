@@ -21,7 +21,7 @@
                     <span class="text-danger" ng-show="dreamCompanyForm.companyRating.$error.required&&dreamCompanyForm.companyRating.$dirty">Tell me something about the company.</span>
                 </div>
             <div class="col-md-12" style="text-align:center;">
-                <button type="button" class="btn btn-default"  popover="I appeared on mouse enter!" popover-trigger="mouseenter" ng-disabled="dreamCompanyForm.$invalid" ng-click="Save(company)">Save Dream Company</button>
+                <button type="button" class="btn btn-default"  popover="I appeared on mouse enter!" popover-trigger="mouseenter" ng-disabled="dreamCompanyForm.$invalid" ng-click="Save(company);dreamCompanyForm.$setPristine()">Save Dream Company</button>
             </div>
         </form>
     </div>

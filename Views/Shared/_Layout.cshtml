@@ -2,23 +2,27 @@
 <html data-ng-app="restaurantApp">
 <head>
     <meta charset="utf-8" />
-    
+
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/bundles/bootstrap")
-@*    @Styles.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/css")*@
+@*    @Styles.Render("~/Content/css")*@
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     @Styles.Render("~/Content/Angular/animation.css")
-            
-    @Scripts.Render("~/bundles/modernizr")
+
+@*    @Scripts.Render("~/bundles/modernizr")*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js")
-    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-animate.js")
-    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js")
-    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js")
-    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js")
-    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-sanitize.js")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-animate.js")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-cookies.js")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-resource.js")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-route.js")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-sanitize.js")
     @Scripts.Render("~/Scripts/Angular/app.js")
     @Scripts.Render("~/Scripts/Angular/Controllers.js")
     @Scripts.Render("~/Scripts/Angular/factories.js")
@@ -27,7 +31,7 @@
     @Scripts.Render("~/Scripts/Angular/ui-bootstrap-tpls-0.11.0.js")
 
 
-    
+
     @RenderSection("header", required: false)
     <title>@ViewBag.Title - My ASP.NET MVC Application</title>
     <!-- Bootstrap CSS fixes for IE6 -->
@@ -46,22 +50,12 @@
                 <section id="login">
                     @Html.Partial("_LoginPartial")
                 </section>
-                <nav class="hidden">
-                    <ul class="nav nav-pills" data-ng-controller="navigationCtrl as navCtrl">
-                        <li data-ng-class="{active:navCtrl.isSet(1)}" data-ng-click="navCtrl.setTab(1)">@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li data-ng-class="{active:navCtrl.isSet(2)}" data-ng-click="navCtrl.setTab(2)">@Html.ActionLink("About", "About", "Home")</li>
-                        <li data-ng-class="{active:navCtrl.isSet(3)}" data-ng-click="navCtrl.setTab(3)">@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li data-ng-class="{active:navCtrl.isSet(4)}" data-ng-click="navCtrl.setTab(4)">@Html.ActionLink("SPA", "Index", "Profile")</li>
-
-
-                    </ul>
-                </nav>
                 <nav>
                     <ul class="nav nav-pills" data-ng-controller="navigationCtrl as navCtrl">
                         <li data-ng-class="{active:isActive('/')}"><a href="/#/">Professional</a></li>
                         <li data-ng-class="{active:isActive('/casual')}"><a href="/#/casual">Casual</a></li>
                         <li data-ng-class="{active:isActive('/topCompanies')}"><a href="/#/topCompanies">My Dreams</a></li>
-                        <li class="hidden"><a href="/#/angualrExamples">Examples</a></li>
+                        <li data-ng-class="{active:isActive('/angualrExamples')}"><a href="/#/angualrExamples">Examples</a></li>
                         @{
                             if (Request.Cookies["UserName"] != null)
                             {     <li>@Html.ActionLink("My Profile", "MyProfile", "Home")</li>  }
@@ -84,10 +78,6 @@
             </div>
         </div>
     </footer>
-
-
-   
-    
     @RenderSection("scripts", required: false)
 </body>
 </html>

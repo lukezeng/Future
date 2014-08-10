@@ -107,9 +107,8 @@ namespace Future.Controllers
         }
 
         // PUT api/company/5
-        public string Save(Company company)
+        public string Post(Company company)
         {
-            List<Company> companies = new List<Company> { };
             //This is testing the build-in SqlClient 
             //Connection tested sucessfully on 11/6/2013
             SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
