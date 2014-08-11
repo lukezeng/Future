@@ -2,36 +2,35 @@
 @{
     ViewBag.Title = "Register";
 }
+<div class="col-md-6 col-md-offset-3">
+    <hgroup class="title">
+        <h1>@ViewBag.Title.</h1>
+        <h2>Create a new account.</h2>
+    </hgroup>
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
-</hgroup>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
+        <fieldset>
+            <legend>Registration Form</legend>
+            <div class="form-group">
                 @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
-}
-
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+            <input type="submit" value="Register" />
+        </fieldset>
+    }
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
