@@ -802,6 +802,7 @@
     <Content Include="Scripts\vendor\jquery.ui.widget.js" />
     <Content Include="Templates\404unknown.html" />
     <Content Include="Templates\company.html" />
+    <Content Include="Templates\contactUs.html" />
     <Content Include="Templates\ProfilePage.html" />
     <Content Include="Templates\topCompanies.html" />
     <Content Include="Templates\angualrExamples.html" />
