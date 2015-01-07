@@ -44,7 +44,7 @@
     <header>
         <div class="content-wrapper">
             <div class="float-left">
-                <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                <p class="site-title"><a href="/#/">Your Logo here</a></p>
             </div>
             <div class="float-right">
                 <section id="login">
@@ -53,9 +53,9 @@
                 <nav>
                     <ul class="nav nav-pills" data-ng-controller="navigationCtrl as navCtrl">
                         <li data-ng-class="{active:isActive('/')}"><a href="/#/">Professional</a></li>
-                        <li data-ng-class="{active:isActive('/casual')}"><a href="/#/casual">Casual</a></li>
                         <li data-ng-class="{active:isActive('/topCompanies')}"><a href="/#/topCompanies">My Dreams</a></li>
-                        <li data-ng-class="{active:isActive('/angualrExamples')}"><a href="/#/angualrExamples">Examples</a></li>
+                        <!--<li data-ng-class="{active:isActive('/angualrExamples')}"><a href="/#/angualrExamples">Examples</a></li>-->
+                        <li data-ng-class="{active:isActive('/contactUs')}"><a href="/#/contactUs">Contact Us</a></li>
                         @{
                             if (Request.Cookies["UserName"] != null)
                             {     <li>@Html.ActionLink("My Profile", "MyProfile", "Home")</li>  }

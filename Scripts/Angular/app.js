@@ -13,6 +13,10 @@
                 controller: 'topCompaniesViewCtrl',
                 templateUrl: '/Templates/topCompanies.html'
             }).
+            when('/contactUs', {
+                controller: 'contactUsViewCtrl',
+                templateUrl: '/Templates/contactUs.html'
+            }).
             when('/angualrExamples', {
                 controller: 'examplesCtrl',
                 templateUrl: '/Templates/angualrExamples.html'
