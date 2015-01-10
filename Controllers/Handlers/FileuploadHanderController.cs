@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Web.Mvc;
-namespace Future.Controllers
+
+namespace Future.Controllers.Handlers
 {
     public class AjaxHandlerController : Controller
     {
