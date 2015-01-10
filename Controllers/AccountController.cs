@@ -5,7 +5,6 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using Future.Filters;
@@ -17,12 +16,11 @@ using System.Net;
 namespace Future.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    [InitializeSimpleMembership] 
     public class AccountController : Controller
     {
         //
         // GET: /Account/Login
-
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -32,7 +30,6 @@ namespace Future.Controllers
 
         //
         // POST: /Account/Login
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -40,54 +37,40 @@ namespace Future.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                //This is testing the build-in SqlClient 
-                //Connection tested sucessfully on 11/6/2013
-                SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-                SqlDataReader rdr = null;
-                string UserName = "";
-                try
+                var userName = "";
+                using (
+                    SqlConnection conn =
+                        new SqlConnection(
+                            System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"]
+                                .ConnectionString))
                 {
-                    // 2. Open the connection
-                    conn.Open();
-
-                    // 3. Pass the connection to a command object
-                    SqlCommand cmd = new SqlCommand("select UserName from UserProfile where UserName = '" + model.UserName + "'", conn);
-
-                    //
-                    // 4. Use the connection
-                    //
-
-                    // get query results
-                    rdr = cmd.ExecuteReader();
-
-                    // print the Title of each Movie
-                    while (rdr.Read())
+                    try
                     {
-                        UserName += rdr[0];
+                        conn.Open();
+                        var cmd =
+                            new SqlCommand(
+                                "select UserName from UserProfile where UserName = '" + model.UserName + "'", conn);
+                        var rdr = cmd.ExecuteReader();
+
+                        // print the Title of each Movie
+                        while (rdr.Read())
+                        {
+                            userName += rdr[0];
+                        }
+                    }
+                    catch(Exception)
+                    {
+                        // ignored
                     }
                 }
-                finally
+                HttpCookie cookieUserName = new HttpCookie("UserName")
                 {
-                    // close the reader
-                    if (rdr != null)
-                    {
-                        rdr.Close();
-                    }
-
-                    // 5. Close the connection
-                    if (conn != null)
-                    {
-                        conn.Close();
-                    }
-                }
-                HttpCookie cookieUserName = new HttpCookie("UserName");
-                cookieUserName.Value = UserName;
-                cookieUserName.Expires = DateTime.Now.AddDays(1d);
+                    Value = userName,
+                    Expires = DateTime.Now.AddDays(1d)
+                };
                 Response.Cookies.Add(cookieUserName);
                 return RedirectToLocal(returnUrl);
             }
-
-            // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
         }
@@ -101,18 +84,8 @@ namespace Future.Controllers
         {
             if (Request.Cookies["UserName"] != null)
             {
-                HttpCookie cookieUserName = new HttpCookie("UserName");
-                cookieUserName.Expires = DateTime.Now.AddDays(-1d);
+                var cookieUserName = new HttpCookie("UserName") {Expires = DateTime.Now.AddDays(-1d)};
                 Response.Cookies.Add(cookieUserName);
-            }
-            if (Session["facebooktoken"] != null)
-            {
-                var fb = new Facebook.FacebookClient();
-                string accessToken = Session["facebooktoken"] as string;
-                //var logoutUrl = fb.GetLogoutUrl(new { access_token = accessToken, next = "http://localhost:39852/" });
-
-                Session.RemoveAll();
-                //return Redirect(logoutUrl.AbsoluteUri);
             }
             WebSecurity.Logout();
 
@@ -136,111 +109,87 @@ namespace Future.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+            try
             {
-                // Attempt to register the user
+                WebSecurity.CreateUserAndAccount(
+                    model.UserName,
+                    model.Password,
+                    new
+                    {
+                           
+                    },
+                    true);
+                string queryConfirmationToken = "select ConfirmationToken from webpages_Membership where UserId = (SELECT UserId FROM  UserProfile where UserName='" + model.UserName + "'  )";
+                SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                SqlDataReader rdr = null;
+                string confirmationToken = "";
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(
-                       model.UserName,
-                       model.Password,
-                       new
-                       {
-                           
-                       },
-                       true);
-                    string queryConfirmationToken = "select ConfirmationToken from webpages_Membership where UserId = (SELECT UserId FROM  UserProfile where UserName='" + model.UserName + "'  )";
-                    SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-                    SqlDataReader rdr = null;
-                    string ConfirmationToken = "";
-                    try
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(queryConfirmationToken, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
                     {
-                        // 2. Open the connection
-                        conn.Open();
-
-                        // 3. Pass the connection to a command object
-                        SqlCommand cmd = new SqlCommand(queryConfirmationToken, conn);
-
-                        //
-                        // 4. Use the connection
-                        //
-
-                        // get query results
-                        rdr = cmd.ExecuteReader();
-
-                        // print the Title of each Movie
-                        while (rdr.Read())
-                        {
-                            ConfirmationToken += rdr[0];
-                        }
+                        confirmationToken += rdr[0];
                     }
-                    finally
-                    {
-                        // close the reader
-                        if (rdr != null)
-                        {
-                            rdr.Close();
-                        }
-
-                        // 5. Close the connection
-                        if (conn != null)
-                        {
-                            conn.Close();
-                        }
-                    }
-                    //WebSecurity.Login(model.UserName, model.Password);
-                    var fromAddress = new MailAddress("noreply@vifuture.com", "Vifuture Account Team");
-                    //var toAddress = new MailAddress(model.UserName, model.UserName);
-                    var toAddress = new MailAddress("lukezeng@live.com", model.UserName);
-                    var toAddressRC = new MailAddress(model.UserName, model.UserName);
-                    const string fromPassword = "head/16/fan";
-                    string subject = "Welcome to Luke's Future";
-                    string body = "http://www.Vifuture.com/account/confirmaccount?username=" + model.UserName + "&confirmToken=" + ConfirmationToken;
-
-
-                    //Sending Email to greet the new registered user 
-                    var smtp = new SmtpClient
-                    {
-                        Host = "mail.foxglove.arvixe.com",
-                        Port = 587,
-                        EnableSsl = false,
-                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-                    };
-                    using (var message = new MailMessage(fromAddress, toAddress)
-                    {
-                        Subject = subject,
-                        Body = body
-                    })
-                    using (var messageRC = new MailMessage(fromAddress, toAddressRC)
-                    {
-                        Subject = subject,
-                        Body = body
-                    })
-
-                    {
-                        smtp.Send(message);
-                        smtp.Send(messageRC);
-                    }
-                    return RedirectToAction("Registered", "Account", new { UserName = model.UserName });
                 }
-                catch (MembershipCreateUserException e)
+                finally
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    if (rdr != null)
+                    {
+                        rdr.Close();
+                    }
+                    conn.Close();
                 }
-            }
+                var fromAddress = new MailAddress("noreply@vifuture.com", "Vifuture Account Team");
+                var toAddress = new MailAddress("lukezeng@live.com", model.UserName);
+                var toAddressRc = new MailAddress(model.UserName, model.UserName);
+                const string fromPassword = "head/16/fan";
+                const string subject = "Welcome to Luke's Future";
+                string body = "http://www.Vifuture.com/account/confirmaccount?username=" + model.UserName + "&confirmToken=" + confirmationToken;
 
-            // If we got this far, something failed, redisplay form
+
+                //Sending Email to greet the new registered user 
+                var smtp = new SmtpClient
+                {
+                    Host = "mail.foxglove.arvixe.com",
+                    Port = 587,
+                    EnableSsl = false,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                using (var messageRc = new MailMessage(fromAddress, toAddressRc)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+
+                {
+                    smtp.Send(message);
+                    smtp.Send(messageRc);
+                }
+                return RedirectToAction("Registered", "Account", new {model.UserName });
+            }
+            catch (MembershipCreateUserException e)
+            {
+                ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+            }
             return View(model);
         }
 
         //
         //Post: /Account/Registered Welcome Page
         [AllowAnonymous]
-        public ActionResult Registered(string UserName)
+        public ActionResult Registered(string userName)
         {
-            ViewBag.UserName = UserName;
+            ViewBag.UserName = userName;
             return View();
 
         }
@@ -385,7 +334,7 @@ namespace Future.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
-            AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+            var result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
@@ -398,49 +347,42 @@ namespace Future.Controllers
 
             if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
             {
-                //This is testing the build-in SqlClient 
-                //Connection tested sucessfully on 11/6/2013
-                SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-                SqlDataReader rdr = null;
-                string UserName = "";
-                try
+                var userName = "";
+                using (
+                    var conn =
+                        new SqlConnection(
+                            System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"]
+                                .ConnectionString))
                 {
-                    // 2. Open the connection
-                    conn.Open();
-
-                    // 3. Pass the connection to a command object
-                    SqlCommand cmd = new SqlCommand("select UserName from UserProfile where UserID = (select UserID from webpages_OAuthMembership WHERE ProviderUserID = '" + result.ProviderUserId + "')", conn);
-
-                    //
-                    // 4. Use the connection
-                    //
-
-                    // get query results
-                    rdr = cmd.ExecuteReader();
-
-                    // print the Title of each Movie
-                    while (rdr.Read())
+                    SqlDataReader rdr = null;
+                    try
                     {
-                        UserName += rdr[0];
+                        // 2. Open the connection
+                        conn.Open();
+
+                        // 3. Pass the connection to a command object
+                        var cmd =
+                            new SqlCommand(
+                                "select UserName from UserProfile where UserID = (select UserID from webpages_OAuthMembership WHERE ProviderUserID = '" +
+                                result.ProviderUserId + "')", conn);
+                        rdr = cmd.ExecuteReader();
+
+                        // print the Title of each Movie
+                        while (rdr.Read())
+                        {
+                            userName += rdr[0];
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
                     }
                 }
-                finally
+                var cookieUserName = new HttpCookie("UserName")
                 {
-                    // close the reader
-                    if (rdr != null)
-                    {
-                        rdr.Close();
-                    }
-
-                    // 5. Close the connection
-                    if (conn != null)
-                    {
-                        conn.Close();
-                    }
-                }
-                HttpCookie cookieUserName = new HttpCookie("UserName");
-                cookieUserName.Value = UserName;
-                cookieUserName.Expires = DateTime.Now.AddDays(1d);
+                    Value = userName,
+                    Expires = DateTime.Now.AddDays(1d)
+                };
                 Response.Cookies.Add(cookieUserName);
                 return RedirectToLocal(returnUrl);
             }
@@ -458,9 +400,11 @@ namespace Future.Controllers
                 ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
                 ViewBag.ReturnUrl = returnUrl;
                 //return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
-                HttpCookie cookieUserName = new HttpCookie("UserName");
-                cookieUserName.Value = "abcc";
-                cookieUserName.Expires = DateTime.Now.AddDays(1d);
+                HttpCookie cookieUserName = new HttpCookie("UserName")
+                {
+                    Value = "abcc",
+                    Expires = DateTime.Now.AddDays(1d)
+                };
                 Response.Cookies.Add(cookieUserName);
                 return View("ExternalLoginConfirmation", new RegisterExternalLoginModel
                 {
@@ -480,8 +424,8 @@ namespace Future.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
         {
-            string provider = null;
-            string providerUserId = null;
+            string provider;
+            string providerUserId;
 
             if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
             {
@@ -491,28 +435,19 @@ namespace Future.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (var db = new UsersContext())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    var user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        UserProfile newUser = db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        var newUser = db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
                         db.SaveChanges();
-
-                        bool facebookVerified;
 
                         var client = new Facebook.FacebookClient(Session["facebooktoken"].ToString());
                         dynamic response = client.Get("me", new { fields = "verified" });
-                        if (response.ContainsKey("verified"))
-                        {
-                            facebookVerified = response["verified"];
-                        }
-                        else
-                        {
-                            facebookVerified = false;
-                        }
+                        bool facebookVerified = response.ContainsKey("verified") && response["verified"];
 
 
                         db.ExternalUsers.Add(new ExternalUserInformation
@@ -562,18 +497,12 @@ namespace Future.Controllers
         public ActionResult RemoveExternalLogins()
         {
             ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
-            List<ExternalLogin> externalLogins = new List<ExternalLogin>();
-            foreach (OAuthAccount account in accounts)
-            {
-                AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
-
-                externalLogins.Add(new ExternalLogin
+            List<ExternalLogin> externalLogins = (from account in accounts
+                let clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider)
+                select new ExternalLogin
                 {
-                    Provider = account.Provider,
-                    ProviderDisplayName = clientData.DisplayName,
-                    ProviderUserId = account.ProviderUserId,
-                });
-            }
+                    Provider = account.Provider, ProviderDisplayName = clientData.DisplayName, ProviderUserId = account.ProviderUserId,
+                }).ToList();
 
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);

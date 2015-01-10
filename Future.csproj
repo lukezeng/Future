@@ -206,10 +206,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AjaxHandlerController.cs" />
-    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\api\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Migrations\201407160038544_addCompany.cs" />
     <Compile Include="Migrations\201407160038544_addCompany.Designer.cs">
       <DependentUpon>201407160038544_addCompany.cs</DependentUpon>
@@ -219,8 +218,6 @@
       <DependentUpon>201407160050563_addCompany3.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\JSONHelper.cs" />
-    <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
