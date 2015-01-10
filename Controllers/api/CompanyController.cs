@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Http;
@@ -20,32 +21,11 @@ namespace Future.Controllers.api
         }
 
         // GET api/company/5
-        public IEnumerable<Company> Get(int id)
+        public Company Get(int id)
         {
-            var companies = new List<Company>();
-            using (var conn = new SqlConnection(ConnectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    var cmd = new SqlCommand("SELECT * FROM Companies WHERE Id=" + id, conn);
-                    var rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        companies.Add(new Company
-                        {
-                            Id = rdr.GetInt32(0),
-                            Name = rdr.GetString(1),
-                            Rating = rdr.GetString(2)
-                        });
-                    }
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            }
-            return companies;
+            var vifuturedbEntities = new vifuturedbEntities();
+            var company = vifuturedbEntities.Companies.Single(x => x.Id == id);
+            return company;
         }
 
         // PUT api/company/5
@@ -73,19 +53,10 @@ namespace Future.Controllers.api
         // DELETE api/company/5
         public void Delete(int id)
         {
-            using (var conn = new SqlConnection(ConnectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    var cmd = new SqlCommand("DELETE FROM companies where id = " + id, conn);
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            }      
+            var vifuturedbEntities = new vifuturedbEntities();
+            var companyToDelete = vifuturedbEntities.Companies.SingleOrDefault(x=>x.Id == id);
+            vifuturedbEntities.Companies.Remove(companyToDelete);
+            vifuturedbEntities.SaveChanges();
         }
     }
 }
