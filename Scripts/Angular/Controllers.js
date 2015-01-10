@@ -4,13 +4,21 @@
     };
 });
 
-mainApp.controller('ProfilePageCtrl', function ($scope, $http) {
+mainApp.controller('profilePageCtrl', function ($scope, $http) {
+
+});
+
+mainApp.controller('contactUsCtrl', function ($scope, $http) {
+
+});
+
+mainApp.controller('jasmineCtrl', function ($scope, $http) {
 
 });
 
 
 
-mainApp.controller('topCompaniesViewCtrl', ['$scope', '$http', 'companies', function ($scope, $http, companies) {
+mainApp.controller('topCompaniesCtrl', ['$scope', '$http', 'companies', function ($scope, $http, companies) {
 
     $scope.company = {};
     $scope.companies = companies.get();

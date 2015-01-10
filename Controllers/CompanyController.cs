@@ -14,21 +14,22 @@ namespace Future.Controllers
 {
     public class CompanyController : ApiController
     {
+        readonly SqlConnection _conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+
         // GET api/company
         public IEnumerable<Company> Get()
         {
-            List<Company> companies = new List<Company> { };
+            var companies = new List<Company> { };
             //This is testing the build-in SqlClient 
             //Connection tested sucessfully on 11/6/2013
-            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             SqlDataReader rdr = null;
             try
             {
                 // 2. Open the connection
-                conn.Open();
+                _conn.Open();
 
                 // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Companies", conn);
+                var cmd = new SqlCommand("SELECT * FROM Companies", _conn);
 
                 //
                 // 4. Use the connection
@@ -52,10 +53,7 @@ namespace Future.Controllers
                 }
 
                 // 5. Close the connection
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                _conn.Close();
             }
             return companies;
         }
@@ -63,27 +61,13 @@ namespace Future.Controllers
         // GET api/company/5
         public IEnumerable<Company> Get(int id)
         {
-            List<Company> companies = new List<Company> { };
-            //This is testing the build-in SqlClient 
-            //Connection tested sucessfully on 11/6/2013
-            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            var companies = new List<Company> {};
             SqlDataReader rdr = null;
             try
             {
-                // 2. Open the connection
-                conn.Open();
-
-                // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Companies WHERE Id=" + id, conn);
-
-                //
-                // 4. Use the connection
-                //
-
-                // get query results
+                _conn.Open();
+                var cmd = new SqlCommand("SELECT * FROM Companies WHERE Id=" + id, _conn);
                 rdr = cmd.ExecuteReader();
-
-                // print the Title of each Movie
                 while (rdr.Read())
                 {
                     companies.Add(new Company { Id = rdr.GetInt32(0), Name = rdr.GetString(1), Rating = rdr.GetString(2) });
@@ -98,10 +82,7 @@ namespace Future.Controllers
                 }
 
                 // 5. Close the connection
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                _conn.Close();
             }
             return companies;
         }
@@ -114,25 +95,14 @@ namespace Future.Controllers
             SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             try
             {
-                // 2. Open the connection
-                conn.Open();
-
-                // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("INSERT INTO Companies (Name, Rating) VALUES ('" +company.Name + "', '" + company.Rating + "');" , conn);
-
-                //
-                // 4. Use the connection
-                //
+                _conn.Open();
+                var cmd = new SqlCommand("INSERT INTO Companies (Name, Rating) VALUES ('" +company.Name + "', '" + company.Rating + "');" , _conn);
                 cmd.ExecuteNonQuery();
 
             }
             finally
             {
-                // 5. Close the connection
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                _conn.Close();
             }
             return "INSERT INTO Companies (Name, Rating) VALUES ('" + company.Name + "', '" + company.Rating + "');";
         }
@@ -140,30 +110,15 @@ namespace Future.Controllers
         // DELETE api/company/5
         public void Delete(int id)
         {
-            //This is testing the build-in SqlClient 
-            //Connection tested sucessfully on 11/6/2013
-            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             try
             {
-                // 2. Open the connection
-                conn.Open();
-
-                // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("DELETE FROM companies where id = " + id, conn);
-
-                //
-                // 4. Use the connection
-                //
+                _conn.Open();
+                var cmd = new SqlCommand("DELETE FROM companies where id = " + id, _conn);
                 cmd.ExecuteNonQuery();
-
             }
             finally
             {
-                // 5. Close the connection
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                _conn.Close();
             }
         }
     }

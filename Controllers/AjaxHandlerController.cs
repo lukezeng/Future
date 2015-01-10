@@ -20,20 +20,19 @@ namespace Future.Controllers
         }
 
         [HttpPost]
-        public String UpdateProfilePic(string ProfilePicName)
+        public String UpdateProfilePic(string profilePicName)
         {
-            String ProfilePicLocation = "/Files/Users/" + Request.Cookies["UserName"].Value + "/ProfilePic/" + ProfilePicName;
+            String profilePicLocation = "/Files/Users/" + Request.Cookies["UserName"].Value + "/ProfilePic/" + profilePicName;
             //This is testing the build-in SqlClient 
             //Connection tested sucessfully on 11/6/2013
             SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            SqlDataReader rdr = null;
             try
             {
                 // 2. Open the connection
                 conn.Open();
 
                 // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("UPDATE UserProfile SET UserProfilePic = '" + ProfilePicLocation + "' where UserName = '" + Request.Cookies["UserName"].Value + "'", conn);
+                SqlCommand cmd = new SqlCommand("UPDATE UserProfile SET UserProfilePic = '" + profilePicLocation + "' where UserName = '" + Request.Cookies["UserName"].Value + "'", conn);
 
                 //
                 // 4. Use the connection
@@ -42,25 +41,16 @@ namespace Future.Controllers
             }
             finally
             {
-                // close the reader
-                if (rdr != null)
-                {
-                    rdr.Close();
-                }
-
                 // 5. Close the connection
-                if (conn != null)
-                {
-                    conn.Close();
-                }
+                conn.Close();
             }
-            return ProfilePicLocation;
+            return profilePicLocation;
         }
 
         [HttpPost]
         public String GetRestautants()
         {
-            List<Restaurant> Restaurants = new List<Restaurant>{
+            List<Restaurant> restaurants = new List<Restaurant>{
                    new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
                    new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"},
                    new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
@@ -76,23 +66,22 @@ namespace Future.Controllers
                    new Restaurant{Name = "First R", Review = "This is asdadasdasda"},
                    new Restaurant{Name = "Second R", Review = "fdgsdgfsdfg"}
                    };
-            Restaurants.Add(new Restaurant { Name = "Second Rsdfsdf", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rasd", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rsdf", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rsdff", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rdfg", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rfgh", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rsdfsdf", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rasd", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rsdf", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rsdff", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rdfg", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rfgh", Review = "fdgsdgfsdfg" });
 
-            Restaurants.Add(new Restaurant { Name = "Second Rsdfsdf", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rasd", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rsdf", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rsdff", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rdfg", Review = "fdgsdgfsdfg" });
-            Restaurants.Add(new Restaurant { Name = "Second Rfgh", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rsdfsdf", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rasd", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rsdf", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rsdff", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rdfg", Review = "fdgsdgfsdfg" });
+            restaurants.Add(new Restaurant { Name = "Second Rfgh", Review = "fdgsdgfsdfg" });
 
-            //Restaurants.Add(new Restaurant { Name = "Second Rfgh", Review = "fdgsdgfsdfg" });
             var serializer = new JavaScriptSerializer();
-            var serializedResult = serializer.Serialize(Restaurants);
+            var serializedResult = serializer.Serialize(restaurants);
 
             return serializedResult;
         }
