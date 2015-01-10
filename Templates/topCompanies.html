@@ -34,12 +34,12 @@
 </div>
 
 <div class="clearfix">
-    <div style="padding: 15px; height: 100px;" class="repeater col-md-4" data-ng-repeat="example in companies | filter: exampleQuery |offset: currentPage*companiesPerPage | 
+    <div style="padding: 15px; height: 100px;" class="repeater col-md-4" data-ng-repeat="company in companies | filter: exampleQuery |offset: currentPage*companiesPerPage | 
                 limitTo: companiesPerPage track by $index">
-        {{example.Name}}        
-         <button style="float: right;" type="button" class="btn btn-default btn-xs" ng-click="DeleteCompany(example.Id)">delete</button>
+        {{company.Name}}        
+         <button style="float: right;" type="button" class="btn btn-default btn-xs" ng-click="DeleteCompany(company.Id)">delete</button>
         <br />
-        {{example.Rating}}
+        {{company.Rating}}
     </div>
 </div>
 <div>

@@ -29,25 +29,12 @@ namespace Future.Controllers.api
         }
 
         // PUT api/company/5
-        public string Post(Company company)
+        public void Post(Company company)
         {
-            using (var conn = new SqlConnection(ConnectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    var cmd =
-                        new SqlCommand(
-                            "INSERT INTO Companies (Name, Rating) VALUES ('" + company.Name + "', '" + company.Rating +
-                            "');", conn);
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            }
-            return "INSERT INTO Companies (Name, Rating) VALUES ('" + company.Name + "', '" + company.Rating + "');";
+            var vifuturedbEntities = new vifuturedbEntities();
+            vifuturedbEntities.Companies.AddOrUpdate(company);
+            vifuturedbEntities.SaveChanges();
+
         }
 
         // DELETE api/company/5
