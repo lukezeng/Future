@@ -46,9 +46,7 @@ $(function () {
         dataType: 'json',
         context: $('#fileupload')[0],
         data: {
-
             objectContext: "Users\\" + $.cookie("UserName")
-
         }
     }).always(function () {
         $(this).removeClass('fileupload-processing');

@@ -149,7 +149,7 @@
     <!-- We use Backloads. bundeling feature to register only those client side javascript and style files of the jQuery File Upload Plugin that are needed  -->
     @Scripts.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/js")
     <!-- Initialize the jQuery File Upload Plugin -->
-    <script src="~/Scripts/FileUpload/main.js"></script>
+    <script src="~/Scripts/FileUpload/fileupload.main.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var url = '/Backload/UploadHandler';
@@ -165,25 +165,26 @@
                     // Event handler example. Do something if you need after file has been deleted on the server. 
                     // (Refer to the client side documentatio).
                     
-                    var serviceURL = '/AjaxHandler/UpdateProfilePic';
-                    $.ajax({
+                    var serviceUrl = '/AjaxHandler/UpdateProfilePic';
+
+                function successFunc(result, status) {
+                    $(".profilePic").attr('src', result);
+                }
+
+                function errorFunc() {
+                    alert('error');
+                }
+
+                $.ajax({
                         type: "POST",
-                        url: serviceURL,
+                        url: serviceUrl,
                         data:{
                             ProfilePicName: data.files[0].name
                         },
                         success: successFunc,
                         error: errorFunc
                     });
-
-                    function successFunc(result, status) {
-                        $(".profilePic").attr('src', result);
-                    }
-
-                    function errorFunc() {
-                        alert('error');
-                    }
-                });
+            });
 
         });
     </script>

@@ -10,8 +10,6 @@ namespace Future.Controllers.api
 {
     public class CompanyController : ApiController
     {
-        static readonly string ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-
         // GET api/company
         public IEnumerable<Company> Get()
         {

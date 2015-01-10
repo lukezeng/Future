@@ -34,12 +34,11 @@ mainApp.controller('topCompaniesCtrl', ['$scope', '$http', 'companies', function
         $scope.company = {};
     }
 
-    $scope.DeleteCompany = function (Id) {
-        companies.remove(Id).$promise.then(
+    $scope.DeleteCompany = function (id) {
+        companies.remove(id).$promise.then(
             function () {
                 $scope.companies = companies.get();
-            },
-            function () { alert("NONO"); });
+            });
     }
 
 

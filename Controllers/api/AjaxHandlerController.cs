@@ -9,16 +9,22 @@ namespace Future.Controllers
         public String UpdateProfilePic(string profilePicName)
         {
             var profilePicLocation = "/Files/Users/" + Request.Cookies["UserName"].Value + "/ProfilePic/" + profilePicName;
-            var conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            try
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (var conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                var cmd = new SqlCommand("UPDATE UserProfile SET UserProfilePic = '" + profilePicLocation + "' where UserName = '" + Request.Cookies["UserName"].Value + "'", conn);
-                cmd.ExecuteNonQuery();
-            }
-            finally
-            {
-                conn.Close();
+                try
+                {
+                    conn.Open();
+                    var cmd =
+                        new SqlCommand(
+                            "UPDATE UserProfile SET UserProfilePic = '" + profilePicLocation + "' where UserName = '" +
+                            Request.Cookies["UserName"].Value + "'", conn);
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
             return profilePicLocation;
         }
