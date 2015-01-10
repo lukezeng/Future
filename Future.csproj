@@ -71,7 +71,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -205,8 +208,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AjaxHandlerController.cs" />
+    <Compile Include="Controllers\api\AjaxHandlerController.cs" />
     <Compile Include="Controllers\api\CompanyController.cs" />
+    <Compile Include="Controllers\api\ExampleOfRestfulApiController.cs" />
+    <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Migrations\201407160038544_addCompany.cs" />
@@ -217,7 +222,6 @@
     <Compile Include="Migrations\201407160050563_addCompany3.Designer.cs">
       <DependentUpon>201407160050563_addCompany3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Company.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -244,6 +248,25 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Company.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Company.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company.cs">
+      <DependentUpon>Company.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Company.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Company.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Example.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -425,6 +448,23 @@
     <Content Include="Images\ProfilePic\mamaboy.jpg" />
     <Content Include="index.html" />
     <Content Include="README.md" />
+    <EntityDeploy Include="Models\Company.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Company.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Company.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Company.edmx</DependentUpon>
+      <LastGenOutput>Company.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Company.edmx.diagram">
+      <DependentUpon>Company.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Company.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Company.edmx</DependentUpon>
+      <LastGenOutput>Company1.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\vifuture.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Vifuture.pubxml" />
     <Content Include="Scripts\angular-animate.js" />
@@ -804,7 +844,9 @@
     <Content Include="Templates\topCompanies.html" />
     <Content Include="Templates\angualrExamples.html" />
     <Content Include="Templates\ProfilePage1.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -852,6 +894,7 @@
     <Content Include="Views\Home\TestingRWD.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Example\Index.cshtml" />
     <None Include="Web.Backload.Default.config" />
     <None Include="Web.Backload.xsd">
       <SubType>Designer</SubType>
@@ -885,6 +928,9 @@
     <EmbeddedResource Include="Migrations\201407160050563_addCompany3.resx">
       <DependentUpon>201407160050563_addCompany3.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

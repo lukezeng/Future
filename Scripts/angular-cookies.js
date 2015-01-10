@@ -39,7 +39,7 @@ angular.module('ngCookies', ['ng']).
    * @example
    *
    * ```js
-   * function ExampleController($cookies) {
+   * function ExampleOfRestfulApiController($cookies) {
    *   // Retrieving a cookie
    *   var favoriteCookie = $cookies.myFavorite;
    *   // Setting a cookie
@@ -142,7 +142,7 @@ angular.module('ngCookies', ['ng']).
    * @example
    *
    * ```js
-   * function ExampleController($cookies) {
+   * function ExampleOfRestfulApiController($cookies) {
    *   // Put cookie
    *   $cookieStore.put('myFavorite','oatmeal');
    *   // Get cookie

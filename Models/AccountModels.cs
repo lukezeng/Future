@@ -28,8 +28,8 @@ namespace Future.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
 
-        private const String DEFAULT_ProfilePic = "/Files/Users/_DefaultUser/_DefaultProfilePic/DefaultProfilePic.jpg";
-        [DefaultValue(DEFAULT_ProfilePic)]
+        private const String DefaultProfilePic = "/Files/Users/_DefaultUser/_DefaultProfilePic/DefaultProfilePic.jpg";
+        [DefaultValue(DefaultProfilePic)]
         public string UserProfilePic { get; set; }
     }
 
